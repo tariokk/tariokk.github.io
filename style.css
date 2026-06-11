@@ -2,7 +2,7 @@ body {
     background-image: linear-gradient(to right, #e4c1ff, #ffffff);
     min-height: 100vh;
     margin: 0;
-    font-family: times;
+    font-family: Arial;
 }
 div {
     background-color: #af4aff;
@@ -20,7 +20,24 @@ nav ul{
     display: flex;
     justify-content: center;
 }
-.glih{
+nav ul li{   
+    margin-right: 20px;
+    }
+nav ul li a{
+    color: white; 
+    text-decoration: none; 
+    font-weight: bold;
+}
+nav a{
+    transition: 0.3s;
+}
+nav a:hover{
+    color: #fff700;
+}
+.glih {
     width: 10%;
     height: auto;
+}
+table{
+    color: #333333;
 }
