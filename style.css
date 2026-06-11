@@ -1,0 +1,22 @@
+body {
+    background-image: linear-gradient(to right, #e4c1ff, #ffffff);
+    min-height: 100vh;
+    margin: 0;
+    font-family: times;
+}
+div {
+    background-color: #af4aff;
+    text-align: center;
+    font-size: 25px;
+}
+nav{
+    background-color: #af4aff;
+    padding: 10px;
+}
+nav ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+}
