@@ -23,25 +23,3 @@
 <p>Aqui eu vou falar sob re uhhhhhhhhhh eu nao sei pera</p>
 
 <!-- Loja -->
-<p>Fiz essa loja com python por diverrsao ai tive a brilhante ideia de botar ela nesse site mas vai ser terrivelmente Difícil.</p>
-
-<p>Calma wu o testando</p>
-
-<h1>Python Test</h1>
-<div id="output"></div>
-
-<script type="module">
-    import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.29.0/full/pyodide.mjs";
-
-    const pyodide = await loadPyodide();
-
-    const result = pyodide.runPython(`
-        print("HELLO FROM PYTHON!")
-        2 + 3
-    `);
-
-    document.getElementById("output").textContent = result;
-</script>
-
-</body>
-</html>
