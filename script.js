@@ -1,3 +1,14 @@
+const rafaps = document.querySelectorAll("html body div.rafax9 p");
+rafaps.forEach(p => {
+    console.log("found rafap");
+    p.style.transition = "width 1s ease-in-out";
+    p.style.width = "40%";
+    let expanded = false;
+    setInterval(() => {
+        expanded = !expanded;
+        p.style.width = expanded ? "75%" : "40%";
+    }, 2500);
+});
 let helloWorldButton = document.querySelector("#helloWorldButton")
 let helloWorld = document.querySelector("#helloWorld")
 if (helloWorldButton) {

@@ -64,6 +64,25 @@ button:hover{
 .info {
     background-image: linear-gradient(to right,#d05bff,#6800bd,#2f0055);
 }
+.rafax9 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    background-color: rgba(0, 0, 0, 0);
+    align-items: center;
+}
+.rafax9 p {
+    background: linear-gradient(to right,#00641b,#16bd00,#3ea430);
+    width: 75%;
+    height: 50px;
+    align-content: center;
+    border-radius: 10px;
+}
+.rafax9 span {
+    color: black;
+    font-size: 50px;
+}
 #glihBalanceMessage {
     font-size: 200%;
     position: fixed;
