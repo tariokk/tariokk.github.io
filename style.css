@@ -1,8 +1,41 @@
 body {
+    isolation: isolate;
     background-image: linear-gradient(to right, #e4c1ff, #ffffff);
     min-height: 100vh;
     margin: 0;
     font-family: Arial;
+}
+#glihMessage {
+    transition: color 2s, text-shadow 2s;
+}
+#glihBalanceMessage {
+    transition: color 2s, text-shadow 2s;
+}
+body::before {
+    content:"";
+    background-image: linear-gradient(to right, rgb(0, 255, 0), rgb(156, 255, 156));
+    opacity: 0;
+    transition: opacity 2s;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+body.jackpotEffect::before {
+    opacity: 1;
+    transition: none;
+}
+#glihMessage.jackpotEffect {
+    color:gold;
+    text-shadow: 0 0 0.1em gold;
+    transition: none;
+    opacity: 1;
+}
+#glihBalanceMessage.jackpotEffect {
+    color:gold;
+    text-shadow: 0 0 0.1em gold;
+    transition: none;
+    opacity: 1;
 }
 div {
     background-color: #af4aff;
@@ -39,9 +72,20 @@ nav a:hover{
     color: #fff700;
     text-shadow: 0 0 15px #fff700;
 }
-.glih {
-    width: 25%;
-    height: auto;
+.gnarpy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
+    padding: 0
+}
+.gnarpy img {
+    width: 500x;
+}
+#mabis {
+    width: 70%;
+    align-self: center;
 }
 table{
     color: #333333;
@@ -57,6 +101,8 @@ button {
     border-radius: 10px;
     color: #fff;
     text-shadow: 0 0 0.22em #fff;
+    transition: 0.2s;
+
 }
 button:hover{
     background-color: #dd6fc5;
@@ -108,4 +154,26 @@ button:hover{
 #mainGlih * {
     margin: 0;
     font-size: 200%;
+}
+.buyButton {
+    display: flex;
+    background: none;
+    margin: 0;
+    padding: 0;
+}
+.details {
+    margin: 0;
+    color: #fff;
+    background-color: #af4aff;
+    padding: 3px;
+    width: 52%;
+    text-shadow: 0 0 0.22em #000000;
+    border-radius: 0.2em;
+    font-size: 20px;
+}
+#glihMessage {
+    text-shadow: 0 0 0.22em #000000;
+}
+img {
+    size: 50%;
 }
