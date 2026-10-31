@@ -12,6 +12,7 @@ rafaps.forEach(p => {
 // traducao
 function translateAll() {
     translationEN = true
+    clickForGlih = "click for glih"
 
     document.querySelector("#glihIncreaseMessage").innerHTML = 
         `Doubles the number of glihs you gain per click<br>
@@ -153,12 +154,10 @@ formGlihName.addEventListener("submit", (event) => {
                 ]
             }
         })
+    
+    //zurted
     } else if (userName.toLowerCase().startsWith("zurted")) {
-        userNameMessage.textContent = `hi zurted!!!!!! i learned how to make website in school and i made thsi  for fun and its full of
-        inside jokes u dont get and portuguese u dont understand but like i wanted to show u cuz ur likemy frend and ur super cool .-;-;
-        though i did change "glihs" to "zurteds" now that u put ur name but i didnt chaange every instance of it cuz i did this in a rush
-        cuz i told u to not slep in 10 minutes so thas the time i had ALSO i automatically translated the website if it wasnt already
-        (some stuff is untranslated or wrong i thinkk tho)`
+        userNameMessage.textContent = `oh my god its zurted the father of tariok the brother of cala slayer of the rat chamber finale inventor of the river`
         translateAll()
         glihVisualChange = function glihVisualChange() {
             glihBalanceMessage.textContent = `zurteds: ${numberAbbreviate(glihBalance)}`
@@ -178,19 +177,46 @@ formGlihName.addEventListener("submit", (event) => {
             }
             
         }
-        glihButton.textContent = "click for zurted"
+        glihButton.textContent = clickForGlih
         glihVisualChange()
+        clickForGlih = "click for zurt"
+        glihButton.textContent = clickForGlih
 
+    //paximos
+    } else if (userName.toLowerCase().startsWith("pax")) {
+        glihMessage.textContent = `Welcome, Paximoselle the Androgynous Beast.`
+        translateAll()
+        glihVisualChange = function glihVisualChange() {
+            glihBalanceMessage.textContent = `paxs: ${numberAbbreviate(glihBalance)}`
+            if (glihNumber > 1) {
+                if (!translationEN) {
+                glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} pax!`
+                } else {
+                    glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} pax!`
+                }
+            }
+            else {
+                if (!translationEN) {
+                glihMessage.textContent = `${userName} ganhou ${glihNumber} pax!`
+                } else {
+                    glihMessage.textContent = `${userName} gained ${glihNumber} pax!`
+                }
+            }
+            
+        }
+        clickForGlih = "click for pax"
+        glihButton.textContent = clickForGlih
     } else {
         if (!translationEN) {
             userNameMessage.textContent = `oi ${userName}!!!!!!!!!!!!!!!!!!!`
         } else {
             userNameMessage.textContent = `hi ${userName}!!!!!!!!!!!!!!!!!!!`
         }
-        nameInput.value = ""
     }
+    nameInput.value = ""
 })
 // botao principal de aumentar glihs & balança
+clickForGlih = "clique para glih"
 let toggleMusic = document.querySelector("#toggleMusic")
 toggleMusic.hidden = true
 let currentSong = 0
@@ -284,11 +310,7 @@ glihButton.addEventListener("click", () => {
             glihBalanceMessage.classList.remove("jackpotEffect")
         },1)
         setTimeout(()=>{
-            if(!translationEN) {
-                glihButton.textContent = "clique para glih"
-            } else {
-                glihButton.textContent = "click for glih"
-            }
+            glihButton.textContent = clickForGlih
         },2000)
     } else {
         glihNumber += glihIncrease
@@ -418,6 +440,7 @@ let translations = {
     nameInput: "type your name:",
     glihButton: "click for glih",
     tip: "if yoyr'e on pc you can click with mouse OR spacebar",
+    toggleMusic: "Pause/unpause music"
 }
 let buttonTranslate = document.querySelector("#buttonTranslate")
 buttonTranslate.addEventListener("click",()=>{
@@ -434,7 +457,7 @@ adminGlihBalance.hidden = true
 adminJackpotChance.hidden = true
 adminForm.addEventListener("submit", (event) => {
     event.preventDefault()
-    if (adminInput.value === "676767") {
+    if (adminInput.value === "1987") {
         adminGlihBalance.hidden = false
         adminJackpotChance.hidden = false
 
