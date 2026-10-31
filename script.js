@@ -10,11 +10,11 @@ rafaps.forEach(p => {
     }, 2500);
 });
 let playlist = [
-    "WhenTheMoon'sReachingOutStars-Reload-.mp3",
-    "ColorYourNight.mp3",
-    "巌戸台分寮 -Reload-.mp3",
-    "Heartbeat, Heartbreak.mp3",
-    "Graze the Roof (In-Game).mp3"
+    "musica/WhenTheMoon'sReachingOutStars-Reload-.mp3",
+    "musica/ColorYourNight.mp3",
+    "musica/巌戸台分寮 -Reload-.mp3",
+    "musica/Heartbeat, Heartbreak.mp3",
+    "musica/Graze the Roof (In-Game).mp3"
 ]
 let helloWorldButton = document.querySelector("#helloWorldButton")
 let helloWorld = document.querySelector("#helloWorld")
@@ -116,19 +116,19 @@ formGlihName.addEventListener("submit", (event) => {
             userNameMessage.textContent = "dont eat my brainz :( I changed the background music songs for u"
         }
         playlist = [
-            "It's me, It's Verity.mp3",
-            "Master of Humanity.mp3",
-            "I Miss The Quiet.mp3"
+            "musica/It's me, It's Verity.mp3",
+            "musica/Master of Humanity.mp3",
+            "musica/I Miss The Quiet.mp3"
         ]
         formGlihName.addEventListener("submit",(event)=>{
             event.preventDefault()
             if (!userName.toLowerCase().startsWith("verity")) {
                 playlist = [
-                    "WhenTheMoon'sReachingOutStars-Reload-.mp3",
-                    "ColorYourNight.mp3",
-                    "巌戸台分寮 -Reload-.mp3",
-                    "Heartbeat, Heartbreak.mp3",
-                    "Graze the Roof (In-Game).mp3"
+                    "musica/WhenTheMoon'sReachingOutStars-Reload-.mp3",
+                    "musica/ColorYourNight.mp3",
+                    "musica/巌戸台分寮 -Reload-.mp3",
+                    "musica/Heartbeat, Heartbreak.mp3",
+                    "musica/Graze the Roof (In-Game).mp3"
                 ]
             }
         })
