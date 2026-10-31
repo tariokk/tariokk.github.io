@@ -9,7 +9,6 @@ rafaps.forEach(p => {
         p.style.width = expanded ? "75%" : "40%";
     }, 2500);
 });
-let glihSFX = new Audio("glitch67.ogg")
 let playlist = [
     "WhenTheMoon'sReachingOutStars-Reload-.mp3",
     "ColorYourNight.mp3",
