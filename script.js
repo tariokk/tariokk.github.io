@@ -9,12 +9,34 @@ rafaps.forEach(p => {
         p.style.width = expanded ? "75%" : "40%";
     }, 2500);
 });
+// traducao
+function translateAll() {
+    translationEN = true
+
+    document.querySelector("#glihIncreaseMessage").innerHTML = 
+        `Doubles the number of glihs you gain per click<br>
+        Current level: ${numberAbbreviate(glihIncrease)} glih(s) per click`
+    document.querySelector("#glihPassiveIncreaseMessage").innerHTML =
+        `Increases your glih balance by 2.5% per upgrade each second<br>
+        Current level: ${(glihPassiveIncrease * 100).toFixed(1)}% glihs per second`
+    document.querySelector("#jackpotChanceMessage").innerHTML =
+        `+0.1% chance per upgrade to hit a jackpot when clicking for glih which grants 10000x what the click would<br>
+        Current level: ${(jackpotChance * 100).toFixed(1)}% chance`
+
+    buyGlihIncrease.textContent = `buy glih upgrade $${numberAbbreviate(buyGlihIncreasePrice)} glihs`
+    buyGlihPassiveIncrease.textContent = `buy glih passive upgrade $${numberAbbreviate(buyGlihPassiveIncreasePrice)} glihs`
+    buyJackpotChance.textContent = `buy jackpot chance on click $${numberAbbreviate(buyJackpotChancePrice)} glihs`
+    document.querySelectorAll("[data-translate]").forEach(element=>{
+        element.textContent = translations[element.dataset.translate]
+    })
+}
+let glihSFX = new Audio("glitch67.ogg")
 let playlist = [
-    "musica/WhenTheMoon'sReachingOutStars-Reload-.mp3",
-    "musica/ColorYourNight.mp3",
-    "musica/巌戸台分寮 -Reload-.mp3",
-    "musica/Heartbeat, Heartbreak.mp3",
-    "musica/Graze the Roof (In-Game).mp3"
+    "WhenTheMoon'sReachingOutStars-Reload-.mp3",
+    "ColorYourNight.mp3",
+    "巌戸台分寮 -Reload-.mp3",
+    "Heartbeat, Heartbreak.mp3",
+    "Graze the Roof (In-Game).mp3"
 ]
 let helloWorldButton = document.querySelector("#helloWorldButton")
 let helloWorld = document.querySelector("#helloWorld")
@@ -68,7 +90,7 @@ function numberAbbreviate(number) {
     }
     return number
 }
-function glihVisualChange() {
+let glihVisualChange = function glihVisualChange() {
     glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`
     if (glihNumber > 1) {
         if (!translationEN) {
@@ -116,22 +138,50 @@ formGlihName.addEventListener("submit", (event) => {
             userNameMessage.textContent = "dont eat my brainz :( I changed the background music songs for u"
         }
         playlist = [
-            "musica/It's me, It's Verity.mp3",
-            "musica/Master of Humanity.mp3",
-            "musica/I Miss The Quiet.mp3"
+            "It's me, It's Verity.mp3",
+            "Master of Humanity.mp3",
+            "I Miss The Quiet.mp3"
         ]
         formGlihName.addEventListener("submit",(event)=>{
             event.preventDefault()
             if (!userName.toLowerCase().startsWith("verity")) {
                 playlist = [
-                    "musica/WhenTheMoon'sReachingOutStars-Reload-.mp3",
-                    "musica/ColorYourNight.mp3",
-                    "musica/巌戸台分寮 -Reload-.mp3",
-                    "musica/Heartbeat, Heartbreak.mp3",
-                    "musica/Graze the Roof (In-Game).mp3"
+                    "WhenTheMoon'sReachingOutStars-Reload-.mp3",
+                    "ColorYourNight.mp3",
+                    "巌戸台分寮 -Reload-.mp3",
+                    "Heartbeat, Heartbreak.mp3",
+                    "Graze the Roof (In-Game).mp3"
                 ]
             }
         })
+    } else if (userName.toLowerCase().startsWith("zurted")) {
+        userNameMessage.textContent = `hi zurted!!!!!! i learned how to make website in school and i made thsi  for fun and its full of
+        inside jokes u dont get and portuguese u dont understand but like i wanted to show u cuz ur likemy frend and ur super cool .-;-;
+        though i did change "glihs" to "zurteds" now that u put ur name but i didnt chaange every instance of it cuz i did this in a rush
+        cuz i told u to not slep in 10 minutes so thas the time i had ALSO i automatically translated the website if it wasnt already
+        (some stuff is untranslated or wrong i thinkk tho)`
+        translateAll()
+        glihVisualChange = function glihVisualChange() {
+            glihBalanceMessage.textContent = `zurteds: ${numberAbbreviate(glihBalance)}`
+            if (glihNumber > 1) {
+                if (!translationEN) {
+                glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} zurteds!`
+                } else {
+                    glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} zurteds!`
+                }
+            }
+            else {
+                if (!translationEN) {
+                glihMessage.textContent = `${userName} ganhou ${glihNumber} zurteds!`
+                } else {
+                    glihMessage.textContent = `${userName} gained ${glihNumber} zurteds!`
+                }
+            }
+            
+        }
+        glihButton.textContent = "click for zurted"
+        glihVisualChange()
+
     } else {
         if (!translationEN) {
             userNameMessage.textContent = `oi ${userName}!!!!!!!!!!!!!!!!!!!`
@@ -281,7 +331,7 @@ buyGlihIncrease.addEventListener("click",()=>{
         glihIncrease = glihIncrease * 2
         glihBalance = glihBalance - buyGlihIncreasePrice
         glihVisualChange()
-        buyGlihIncreasePrice = Math.round(buyGlihIncreasePrice * 2)
+        buyGlihIncreasePrice = Math.round(buyGlihIncreasePrice * 2.2)
         if (!translationEN) {
             buyGlihIncrease.textContent = `comprar glih upgrade $${numberAbbreviate(buyGlihIncreasePrice)} glihs`
         } else {
@@ -372,24 +422,7 @@ let translations = {
 }
 let buttonTranslate = document.querySelector("#buttonTranslate")
 buttonTranslate.addEventListener("click",()=>{
-    translationEN = true
-
-    document.querySelector("#glihIncreaseMessage").innerHTML = 
-        `Doubles the number of glihs you gain per click<br>
-        Current level: ${numberAbbreviate(glihIncrease)} glih(s) per click`
-    document.querySelector("#glihPassiveIncreaseMessage").innerHTML =
-        `Increases your glih balance by 2.5% per upgrade each second<br>
-        Current level: ${(glihPassiveIncrease * 100).toFixed(1)}% glihs per second`
-    document.querySelector("#jackpotChanceMessage").innerHTML =
-        `+0.1% chance per upgrade to hit a jackpot when clicking for glih which grants 10000x what the click would<br>
-        Current level: ${(jackpotChance * 100).toFixed(1)}% chance`
-
-    buyGlihIncrease.textContent = `buy glih upgrade $${numberAbbreviate(buyGlihIncreasePrice)} glihs`
-    buyGlihPassiveIncrease.textContent = `buy glih passive upgrade $${numberAbbreviate(buyGlihPassiveIncreasePrice)} glihs`
-    buyJackpotChance.textContent = `buy jackpot chance on click $${numberAbbreviate(buyJackpotChancePrice)} glihs`
-    document.querySelectorAll("[data-translate]").forEach(element=>{
-        element.textContent = translations[element.dataset.translate]
-    })
+    translateAll()
     buttonTranslate.remove()
 })
 let adminInput = document.querySelector("#adminInput")
