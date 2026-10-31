@@ -5,6 +5,53 @@ body {
     margin: 0;
     font-family: Arial;
 }
+.defaultDiv {
+    background-color: #af4aff;
+    text-align: center;
+    font-size: 25px;
+    color: #ffffff;
+}
+button {
+    font-size: 30px;
+    touch-action: manipulation;
+    background-color: #ff85e4;
+    border: 5px solid #632497;
+    border-radius: 10px;
+    color: #fff;
+    text-shadow: 0 0 0.22em #fff;
+    transform: scale(1);
+    transition: 
+    color 0.2s, 
+    text-shadow 0.2s, 
+    background-color 0.2s, 
+    transform 0.1s;
+}
+button:focus {
+    outline: 0.07em solid rgb(119, 0, 255);
+    box-shadow: 0 0 2em #7700ff;
+}
+button:active {
+    transform: scale(0.9);
+    transition: transform 0s;
+}
+button:focus:not(:active) {
+    transform: scale(1.05);
+}
+button:hover{
+    background-color: #dd6fc5;
+}
+.leftRight {
+    display: flex;
+    justify-content: space-between;
+}
+.left {
+    display: flex;
+    flex-direction: column;
+}
+.right {
+    display: flex;
+    flex-direction: column;
+}
 #glihMessage {
     transition: color 2s, text-shadow 2s;
 }
@@ -36,12 +83,6 @@ body.jackpotEffect::before {
     text-shadow: 0 0 0.1em gold;
     transition: none;
     opacity: 1;
-}
-div {
-    background-color: #af4aff;
-    text-align: center;
-    font-size: 25px;
-    color: #ffffff;
 }
 .pretty {
     text-shadow: 0 0 0.22em #fff;
@@ -92,20 +133,6 @@ table{
 }
 hr{
     color: #000000;
-}
-button {
-    font-size: 30px;
-    touch-action: manipulation;
-    background-color: #ff85e4;
-    border: 5px solid #632497;
-    border-radius: 10px;
-    color: #fff;
-    text-shadow: 0 0 0.22em #fff;
-    transition: 0.2s;
-
-}
-button:hover{
-    background-color: #dd6fc5;
 }
 .info {
     background-image: linear-gradient(to right,#d05bff,#6800bd,#2f0055);
@@ -160,6 +187,7 @@ button:hover{
     background: none;
     margin: 0;
     padding: 0;
+    gap: 7px;
 }
 .details {
     margin: 0;
@@ -176,4 +204,8 @@ button:hover{
 }
 img {
     size: 50%;
+}
+#adminForm input{
+    background-color: transparent;
+    border: none;
 }
