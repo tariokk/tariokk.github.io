@@ -7,7 +7,7 @@
 </head> 
 <body>
 <!-- Topo -->
-    <div style="width: 100%; padding: 1px;"> 
+    <div class="defaultDiv" style="width: 100%; padding: 1px;"> 
         <h1 class="pretty">Meu Site</h1> 
     </div>
 
@@ -21,25 +21,31 @@
 </nav>
 
 <p>Aqui eu vou falar sob re uhhhhhhhhhh eu nao sei pera</p>
+<!--glihland-->
+<div class="defaultDiv"><h1 class="pretty">Glihland</h1></div>
+<div class="leftRight">
+    <div class="left">
+        <h3 data-translate="welcome">Bem vinde a glihland aqui tem glihs</h3>
+        <form id="formGlihName"><h1 data-translate="nameInput">digite seu nome: </h1><input id="nameInput"></form>
+        <p id="userNameMessage"></p>
+    </div>
+    <div class="right">
+        <button id="buttonTranslate">Translate to englih</button>
+        <br>
+        <button id="toggleMusic">Pausar/despausar musica</button>
+    </div>
+</div>
 
-<div><h1 class="pretty">Glihland</h1></div>
-<h3 data-translate="welcome">Bem vinde a glihland aqui tem glihs</h3>
-<button id="buttonTranslate">Translate to englih</button>
-
-<form id="formGlihName"><h1 data-translate="nameInput">digite seu nome: </h1><input id="nameInput"></form>
-<!-- <button id="submitButton"> -->
-<p id="userNameMessage"></p>
-
-<div id="mainGlih">
+<div id="mainGlih" class="defaultDiv">
 <button id="glihButton" data-translate="glihButton">clique para glih</button> <p id="tip" data-translate="tip">se tiver no pc voce pode clicar com mouse OU spacebar</p>
 <p id="glihMessage"></p>
 </div>
-<div id="glihBalanceMessage" class="pretty"><h1></h1></div>
+<div id="glihBalanceMessage" class="pretty defaultDiv"><h1></h1></div>
 
 <br>
 
-<div class="buyButton">
-    <button id="buyGlihIncrease">comprar glih upgrade sih seh reais</button>
+<div class="buyButton defaultDiv">
+    <button id="buyGlihIncrease" class="buyButtonButton">comprar glih upgrade sih seh reais</button>
     <button class="detailsButton">info</button>
 </div>
 <p class="details" id="glihIncreaseMessage">
@@ -47,8 +53,8 @@
     Nivel atual: 1 glih por clique
 </p>
 <br>
-<div class="buyButton">
-    <button id="buyGlihPassiveIncrease">comprar glih upgrade passivo</button>
+<div class="buyButton defaultDiv">
+    <button id="buyGlihPassiveIncrease" class="buyButtonButton">comprar glih upgrade passivo</button>
     <button class="detailsButton">info</button>
 </div>
 <p class="details" id="glihPassiveIncreaseMessage">
@@ -56,16 +62,17 @@
     Nivel atual: 0% de glihs por segundo
 </p>
 <br>
-<div class="buyButton">
-    <button id="buyJackpotChance">comprar chance de jackpot ao clicar $777 glihs</button>
+<div class="buyButton defaultDiv">
+    <button id="buyJackpotChance" class="buyButtonButton">comprar chance de jackpot ao clicar $777 glihs</button>
     <button class="detailsButton">info</button>
 </div>
 <p class="details" id="jackpotChanceMessage">
-    +0.5% de chance por upgrade de conseguir um jackpot quando clicar no botao de clique por glih que garante 100x mais glihs nesse clique<br>
-    Nivel atual: 0.1% de chance
+    +0.1% de chance por upgrade de conseguir um jackpot quando clicar no botao de clique por glih que garante 10000x mais glihs nesse clique<br>
+    Nivel atual: 0.01% de chance
 </p>
 <br>
-<div class="buyButton">
+<!--
+<div class="buyButton defaultDiv">
     <button id=""></button>
     <button class="detailsButton">info</button>
 </div>
@@ -73,26 +80,13 @@
     placeholder<br>
     placeholder
 </p>
-<br>
-<div class="buyButton">
-    <button id=""></button>
-    <button class="detailsButton">info</button>
-</div>
-<p class="details" id="">
-    placeholder<br>
-    placeholder
-</p>
-<br>
-<div class="buyButton">
-    <button id=""></button>
-    <button class="detailsButton">info</button>
-</div>
-<p class="details" id="">
-    placeholder<br>
-    placeholder
-</p>
-<br>
+<br> -->
 
+<footer>
+    <form id="adminForm" > <input id="adminInput"> </form>
+    <form id="adminGlihBalance"> <input id="adminGlihBalanceInput" placeholder="saldo de glihs"> </form>
+    <form id="adminJackpotChance"> <input id="adminJackpotChanceInput" placeholder="chance de jackpot"> </form>
+</footer>
 <script src="script.js"></script>
 </body>
 </html>
