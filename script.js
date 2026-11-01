@@ -17,20 +17,34 @@ function translateAll() {
     document.querySelector("#glihIncreaseMessage").innerHTML = 
         `Doubles the number of glihs you gain per click<br>
         Current level: ${numberAbbreviate(glihIncrease)} glih(s) per click`
-    document.querySelector("#glihPassiveIncreaseMessage").innerHTML =
-        `Increases your glih balance by 2.5% per upgrade each second<br>
-        Current level: ${(glihPassiveIncrease * 100).toFixed(1)}% glihs per second`
     document.querySelector("#jackpotChanceMessage").innerHTML =
-        `+0.1% chance per upgrade to hit a jackpot when clicking for glih which grants 10000x what the click would<br>
-        Current level: ${(jackpotChance * 100).toFixed(1)}% chance`
+        `+0.01% chance per upgrade to hit a jackpot when clicking for glih which grants 10000x what the click would<br>
+        Current level: ${(jackpotChance * 100).toFixed(2)}% chance`
+    document.querySelector("#buyClickBoosterMessage").innerHTML = 
+        `Each 5 seconds, the next click gives +(10 x (10 x level)) glihs. Can stack and adds before jackpot<br>
+        Current level: +${numberAbbreviate(clickBooster)} per boost.<br>
+        The next click will give: +${numberAbbreviate(currentClickBooster)} glihs`
 
     buyGlihIncrease.textContent = `buy glih upgrade $${numberAbbreviate(buyGlihIncreasePrice)} glihs`
-    buyGlihPassiveIncrease.textContent = `buy glih passive upgrade $${numberAbbreviate(buyGlihPassiveIncreasePrice)} glihs`
     buyJackpotChance.textContent = `buy jackpot chance on click $${numberAbbreviate(buyJackpotChancePrice)} glihs`
+    buyClickBooster.textContent = `buy upgrade passive click booster $${numberAbbreviate(buyClickBoosterPrice)} glihs`
     document.querySelectorAll("[data-translate]").forEach(element=>{
         element.textContent = translations[element.dataset.translate]
     })
 }
+let translations = {
+    welcome: "Welcome to glihland here we have glihs",
+    nameInput: "type your name:",
+    glihButton: "click for glih",
+    tip: "if yoyr'e on pc you can click with mouse OR spacebar",
+    toggleMusic: "Pause/unpause music"
+}
+let buttonTranslate = document.querySelector("#buttonTranslate")
+buttonTranslate.addEventListener("click",()=>{
+    translateAll()
+    buttonTranslate.remove()
+})
+//musica
 let playlist = [
     "musica/WhenTheMoon'sReachingOutStars-Reload-.mp3",
     "musica/ColorYourNight.mp3",
@@ -38,6 +52,7 @@ let playlist = [
     "musica/Heartbeat, Heartbreak.mp3",
     "musica/Graze the Roof (In-Game).mp3"
 ]
+// Hello, world!
 let helloWorldButton = document.querySelector("#helloWorldButton")
 let helloWorld = document.querySelector("#helloWorld")
 if (helloWorldButton) {
@@ -48,6 +63,7 @@ if (helloWorldButton) {
         })
     })
 }
+
 let body = document.querySelector("body")
 let buttons = document.querySelectorAll("button")
 let translationEN = false
@@ -55,58 +71,57 @@ function numberAbbreviate(number) {
     if (number < 1000) {
         return number.toFixed(0)
     }
-    if (number >= 1_000 && number <= 1_000_000) {
-        return (number/1000).toFixed(1) + "k"
+    if (number >= 1_000 && number < 1_000_000) {
+        return (number/1000).toFixed(1).replace(".0","") + "k"
     }
-    if (number >= 1_000_000 && number <= 1_000_000_000) {
-        return (number/1_000_000).toFixed(1) + "m"
+    if (number >= 1_000_000 && number < 1_000_000_000) {
+        return (number/1_000_000).toFixed(1).replace(".0","") + "m"
     }
-    if (number >= 1_000_000_000 && number <= 1_000_000_000_000) {
-        return (number/1_000_000_000).toFixed(1) + "b"
+    if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
+        return (number/1_000_000_000).toFixed(1).replace(".0","") + "b"
     }
-    if (number >= 1_000_000_000_000 && number <= 1_000_000_000_000_000) {
-        return (number/1_000_000_000_000).toFixed(1) + "t"
+    if (number >= 1_000_000_000_000 && number < 1_000_000_000_000_000) {
+        return (number/1_000_000_000_000).toFixed(1).replace(".0","") + "t"
     }
-    if (number >= 1_000_000_000_000_000 && number <= 1_000_000_000_000_000_000) {
-        return (number/1_000_000_000_000_000).toFixed(1) + "q"
+    if (number >= 1_000_000_000_000_000 && number < 1_000_000_000_000_000_000) {
+        return (number/1_000_000_000_000_000).toFixed(1).replace(".0","") + "q"
     }
-    if (number >= 1_000_000_000_000_000_000 && number <= 1_000_000_000_000_000_000_000) {
-        return (number/1_000_000_000_000_000_000).toFixed(1) + "qi"
+    if (number >= 1_000_000_000_000_000_000 && number < 1_000_000_000_000_000_000_000) {
+        return (number/1_000_000_000_000_000_000).toFixed(1).replace(".0","") + "qi"
     }
-    if (number >= 1_000_000_000_000_000_000_000 && number <= 1_000_000_000_000_000_000_000_000) {
-        return (number/1_000_000_000_000_000_000_000).toFixed(1) + "s"
+    if (number >= 1_000_000_000_000_000_000_000 && number < 1_000_000_000_000_000_000_000_000) {
+        return (number/1_000_000_000_000_000_000_000).toFixed(1).replace(".0","") + "s"
     }
-    if (number >= 1_000_000_000_000_000_000_000_000 && number <= 1_000_000_000_000_000_000_000_000_000) {
-        return (number/1_000_000_000_000_000_000_000_000).toFixed(1) + "sp"
+    if (number >= 1_000_000_000_000_000_000_000_000 && number < 1_000_000_000_000_000_000_000_000_000) {
+        return (number/1_000_000_000_000_000_000_000_000).toFixed(1).replace(".0","") + "sp"
     }
-    if (number >= 1_000_000_000_000_000_000_000_000_000 && number <= 1_000_000_000_000_000_000_000_000_000_000) {
-        return (number/1_000_000_000_000_000_000_000_000_000).toFixed(1) + "o"
+    if (number >= 1_000_000_000_000_000_000_000_000_000 && number < 1_000_000_000_000_000_000_000_000_000_000) {
+        return (number/1_000_000_000_000_000_000_000_000_000).toFixed(1).replace(".0","") + "o"
     }
-    if (number >= 1_000_000_000_000_000_000_000_000_000_000 && number <= 1_000_000_000_000_000_000_000_000_000_000_000) {
-        return (number/1_000_000_000_000_000_000_000_000_000_000).toFixed(1) + "n"
+    if (number >= 1_000_000_000_000_000_000_000_000_000_000 && number < 1_000_000_000_000_000_000_000_000_000_000_000) {
+        return (number/1_000_000_000_000_000_000_000_000_000_000).toFixed(1).replace(".0","") + "n"
     }
-    if (number >= 1_000_000_000_000_000_000_000_000_000_000_000 && number <= 1_000_000_000_000_000_000_000_000_000_000_000_000) {
-        return (number/1_000_000_000_000_000_000_000_000_000_000_000).toFixed(1) + "d"
+    if (number >= 1_000_000_000_000_000_000_000_000_000_000_000 && number < 1_000_000_000_000_000_000_000_000_000_000_000_000) {
+        return (number/1_000_000_000_000_000_000_000_000_000_000_000).toFixed(1).replace(".0","") + "d"
     }
     return number
 }
 let glihVisualChange = function glihVisualChange() {
     glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`
-    if (glihNumber > 1) {
+    if (glihNumber > 1 || glihNumber < 1) {
         if (!translationEN) {
-        glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} glihs!`
+            glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} glihs!`
         } else {
             glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} glihs!`
         }
     }
     else {
         if (!translationEN) {
-        glihMessage.textContent = `${userName} ganhou ${glihNumber} glihs!`
+            glihMessage.textContent = `${userName} ganhou ${glihNumber} glih!`
         } else {
-            glihMessage.textContent = `${userName} gained ${glihNumber} glihs!`
+            glihMessage.textContent = `${userName} gained ${glihNumber} glih!`
         }
     }
-    
 }
 // nome
 let formGlihName = document.querySelector("#formGlihName")
@@ -142,7 +157,7 @@ formGlihName.addEventListener("submit", (event) => {
             "musica/Master of Humanity.mp3",
             "musica/I Miss The Quiet.mp3"
         ]
-        formGlihName.addEventListener("submit",(event)=>{
+        verityRemove = (event)=>{
             event.preventDefault()
             if (!userName.toLowerCase().startsWith("verity")) {
                 playlist = [
@@ -152,27 +167,29 @@ formGlihName.addEventListener("submit", (event) => {
                     "musica/Heartbeat, Heartbreak.mp3",
                     "musica/Graze the Roof (In-Game).mp3"
                 ]
+                formGlihName.removeEventListener("submit",verityRemove)
             }
-        })
+        }
+        formGlihName.addEventListener("submit",verityRemove)
     
     //zurted
-    } else if (userName.toLowerCase().startsWith("zurted")) {
+    } else if (userName.toLowerCase().startsWith("zurt")) {
         userNameMessage.textContent = `oh my god its zurted the father of tariok the brother of cala slayer of the rat chamber finale inventor of the river`
         translateAll()
         glihVisualChange = function glihVisualChange() {
-            glihBalanceMessage.textContent = `zurteds: ${numberAbbreviate(glihBalance)}`
-            if (glihNumber > 1) {
+            glihBalanceMessage.textContent = `zurts: ${numberAbbreviate(glihBalance)}`
+            if (glihNumber > 1 || glihNumber < 1) {
                 if (!translationEN) {
-                glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} zurteds!`
+                glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} zurts!`
                 } else {
-                    glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} zurteds!`
+                    glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} zurts!`
                 }
             }
             else {
                 if (!translationEN) {
-                glihMessage.textContent = `${userName} ganhou ${glihNumber} zurteds!`
+                glihMessage.textContent = `${userName} ganhou ${glihNumber} zurt!`
                 } else {
-                    glihMessage.textContent = `${userName} gained ${glihNumber} zurteds!`
+                    glihMessage.textContent = `${userName} gained ${glihNumber} zurt!`
                 }
             }
             
@@ -181,31 +198,65 @@ formGlihName.addEventListener("submit", (event) => {
         glihVisualChange()
         clickForGlih = "click for zurt"
         glihButton.textContent = clickForGlih
+        zurtedRemove = (event)=>{
+            event.preventDefault()
+            if (!userName.toLowerCase().startsWith("zurt")) {
+                glihVisualChange = function glihVisualChange() {
+                    glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`
+                    if (glihNumber > 1 || glihNumber < 1) {
+                        if (!translationEN) {
+                            glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} glihs!`
+                        } else {
+                            glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} glihs!`
+                        }
+                    }
+                    else {
+                        if (!translationEN) {
+                            glihMessage.textContent = `${userName} ganhou ${glihNumber} glih!`
+                        } else {
+                            glihMessage.textContent = `${userName} gained ${glihNumber} glih!`
+                        }
+                    }
+                }            
+                formGlihName.removeEventListener("submit",zurtedRemove)
+            }
+        }
+        formGlihName.addEventListener("submit",zurtedRemove)
 
     //paximos
     } else if (userName.toLowerCase().startsWith("pax")) {
-        glihMessage.textContent = `Welcome, Paximoselle the Androgynous Beast.`
+        userNameMessage.textContent = `Welcome, Paximoselle the Androgynous Beast.`
         translateAll()
         glihVisualChange = function glihVisualChange() {
             glihBalanceMessage.textContent = `paxs: ${numberAbbreviate(glihBalance)}`
-            if (glihNumber > 1) {
-                if (!translationEN) {
-                glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} pax!`
-                } else {
-                    glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} pax!`
-                }
-            }
-            else {
-                if (!translationEN) {
-                glihMessage.textContent = `${userName} ganhou ${glihNumber} pax!`
-                } else {
-                    glihMessage.textContent = `${userName} gained ${glihNumber} pax!`
-                }
-            }
-            
+            glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} pax!`
         }
         clickForGlih = "click for pax"
         glihButton.textContent = clickForGlih
+        paximosRemove = (event)=>{
+            event.preventDefault()
+            if (!userName.toLowerCase().startsWith("pax")) {
+                glihVisualChange = function glihVisualChange() {
+                    glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`
+                    if (glihNumber > 1 || glihNumber < 1) {
+                        if (!translationEN) {
+                            glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} glihs!`
+                        } else {
+                            glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} glihs!`
+                        }
+                    }
+                    else {
+                        if (!translationEN) {
+                            glihMessage.textContent = `${userName} ganhou ${glihNumber} glih!`
+                        } else {
+                            glihMessage.textContent = `${userName} gained ${glihNumber} glih!`
+                        }
+                    }
+                }            
+                formGlihName.removeEventListener("submit",paximosRemove)
+            }
+        }
+        formGlihName.addEventListener("submit",paximosRemove)
     } else {
         if (!translationEN) {
             userNameMessage.textContent = `oi ${userName}!!!!!!!!!!!!!!!!!!!`
@@ -297,28 +348,118 @@ glihButton.addEventListener("click", () => {
     glihBalanceMessage.hidden = false
     //jackpot
     if (Math.random() < jackpotChance) {
-        glihNumber += glihIncrease * 10000
-        glihBalance += glihIncrease * 10000
-        new Audio("Totem_of_Undying.ogg").play()
-        body.classList.add("jackpotEffect")
-        glihMessage.classList.add("jackpotEffect")
-        glihBalanceMessage.classList.add("jackpotEffect")
-        glihButton.textContent = "JACKPOT!!!"
-        setTimeout(()=>{
-            body.classList.remove("jackpotEffect")
-            glihMessage.classList.remove("jackpotEffect")
-            glihBalanceMessage.classList.remove("jackpotEffect")
-        },1)
-        setTimeout(()=>{
-            glihButton.textContent = clickForGlih
-        },2000)
+        if (currentClickBooster === 0) {
+            glihNumber += (glihIncrease + currentClickBooster) * 10000
+            glihBalance += (glihIncrease + currentClickBooster) * 10000
+            new Audio("Totem_of_Undying.ogg").play()
+            body.classList.add("jackpotEffect")
+            glihMessage.classList.add("jackpotEffect")
+            glihBalanceMessage.classList.add("jackpotEffect")
+            glihButton.classList.add("jackpotEffect")
+            glihButton.textContent = "JACKPOT!!!"
+            glihVisualChange = function glihVisualChange() {
+                glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`    
+                glihMessage.textContent = `+${numberAbbreviate(glihIncrease * 10000)} glihs!`
+            }
+            setTimeout(()=>{
+                body.classList.remove("jackpotEffect")
+                glihMessage.classList.remove("jackpotEffect")
+                glihBalanceMessage.classList.remove("jackpotEffect")
+                glihButton.classList.remove("jackpotEffect")
+            },1)
+            setTimeout(()=>{
+                glihButton.textContent = clickForGlih
+                glihVisualChange = function glihVisualChange() {
+                    glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`
+                    if (glihNumber > 1 || glihNumber < 1) {
+                        if (!translationEN) {
+                            glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} glihs!`
+                        } else {
+                            glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} glihs!`
+                        }
+                    }
+                    else {
+                        if (!translationEN) {
+                            glihMessage.textContent = `${userName} ganhou ${glihNumber} glih!`
+                        } else {
+                            glihMessage.textContent = `${userName} gained ${glihNumber} glih!`
+                        }
+                    }
+                }
+                glihVisualChange()
+            },2000)
+        // jackpot + boost
+        } else {
+            glihButton.disabled = true
+            glihNumber += (glihIncrease + currentClickBooster) * 10000
+            glihBalance += (glihIncrease + currentClickBooster) * 10000
+            const totemOfUndyingSFX = new Audio("Totem_of_Undying.ogg")
+            totemOfUndyingSFX.preservesPitch = false
+            totemOfUndyingSFX.playbackRate = 0.93
+            totemOfUndyingSFX.play()
+            body.classList.add("jackpotBoostEffect")
+            body.classList.add("jackpotBoostAnimation")
+            glihMessage.classList.add("jackpotBoostEffect")
+            glihBalanceMessage.classList.add("jackpotBoostEffect")
+            glihButton.classList.add("jackpotBoostEffect")
+            glihButton.textContent = "JACKPOT + BOOST!!!!!!"
+            glihVisualChange = function glihVisualChange() {
+                glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`    
+                glihMessage.textContent = `+${numberAbbreviate((glihIncrease + currentClickBooster) * 10000)} GLIHS!!!`
+            }
+            setTimeout(()=>{
+                glihMessage.classList.remove("jackpotBoostEffect")
+                glihBalanceMessage.classList.remove("jackpotBoostEffect")
+                glihButton.classList.remove("jackpotBoostEffect")
+            },4000)
+            setTimeout(() => {
+                body.classList.remove("jackpotBoostEffect")
+            }, 5000);
+            setTimeout(()=>{
+                body.classList.remove("jackpotBoostAnimation")
+            },8000)
+            setTimeout(()=>{
+                glihButton.textContent = clickForGlih
+                glihVisualChange = function glihVisualChange() {
+                    glihButton.disabled = false
+                    glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`
+                    if (glihNumber > 1 || glihNumber < 1) {
+                        if (!translationEN) {
+                            glihMessage.textContent = `${userName} ganhou ${glihNumber.toFixed(0)} glihs!`
+                        } else {
+                            glihMessage.textContent = `${userName} gained ${glihNumber.toFixed(0)} glihs!`
+                        }
+                    }
+                    else {
+                        if (!translationEN) {
+                            glihMessage.textContent = `${userName} ganhou ${glihNumber} glih!`
+                        } else {
+                            glihMessage.textContent = `${userName} gained ${glihNumber} glih!`
+                        }
+                    }
+                }
+                glihVisualChange()
+            },2000)
+        }
     } else {
-        glihNumber += glihIncrease
-        glihBalance += glihIncrease
-        
-    
+        glihNumber += glihIncrease + currentClickBooster
+        glihBalance += glihIncrease + currentClickBooster    
     }
     glihVisualChange()
+    if (currentClickBooster > 0) {
+        currentClickBooster = 0
+        if (!translationEN) {
+            document.querySelector("#buyClickBoosterMessage").innerHTML = 
+            `A cada 5 segundos, o proximo clique da +(10 x (10 x nivel)) glihs. Pode acumular e adiciona antes de jackpot<br>
+            Nivel atual: +${numberAbbreviate(clickBooster)} por boost.<br>
+            O proximo clique dara: +${numberAbbreviate(currentClickBooster)} glihs`
+        } else {
+            document.querySelector("#buyClickBoosterMessage").innerHTML = 
+            `Each 5 seconds, the next click gives +(10 x (10 x level)) glihs. Can stack and adds before jackpot<br>
+            Current level: +${numberAbbreviate(clickBooster)} per boost.<br>
+            The next click will give: +${numberAbbreviate(currentClickBooster)} glihs`
+        }
+    }
 })
 // botoes de upgrade
 let details = document.querySelectorAll(".details")
@@ -369,7 +510,122 @@ buyGlihIncrease.addEventListener("click",()=>{
         }
     }
 })
-// botao de upgrade passivo
+//botao clickboostser
+let buyClickBooster = document.querySelector("#buyClickBooster")
+let buyClickBoosterMessage = document.querySelector("#buyClickBoosterMessage")
+let clickBooster = 0
+let currentClickBooster = 0
+let buyClickBoosterPrice = 134
+buyClickBooster.textContent = `comprar upgrade click booster passivo $${buyClickBoosterPrice} glihs`
+buyClickBooster.addEventListener("click",()=>{
+    if (glihBalance >= buyClickBoosterPrice) {
+        glihBalance -= buyClickBoosterPrice
+        glihVisualChange()
+        buyClickBoosterPrice **= 1.242
+        if (clickBooster === 0) {
+            clickBooster += 10
+        } else {
+            clickBooster *= 10
+        }
+        if (!translationEN) {
+            buyClickBooster.textContent = `comprar upgrade click booster passivo $${numberAbbreviate(buyClickBoosterPrice)} glihs`
+        } else {
+            buyClickBooster.textContent = `buy upgrade passive click booster $${numberAbbreviate(buyClickBoosterPrice)} glihs`
+        }
+        if (!translationEN) {
+            document.querySelector("#buyClickBoosterMessage").innerHTML = 
+            `A cada 5 segundos, o proximo clique da +(10 x (10 x nivel)) glihs. Pode acumular e adiciona antes de jackpot<br>
+            Nivel atual: +${numberAbbreviate(clickBooster)} por boost.<br>
+            O proximo clique dara: +${numberAbbreviate(currentClickBooster)} glihs`
+        } else {
+            document.querySelector("#buyClickBoosterMessage").innerHTML = 
+            `Each 5 seconds, the next click gives +(10 x (10 x level)) glihs. Can stack and adds before jackpot<br>
+            Current level: +${numberAbbreviate(clickBooster)} per boost.<br>
+            The next click will give: +${numberAbbreviate(currentClickBooster)} glihs`
+        }
+    }
+})
+setInterval(()=>{
+    currentClickBooster += clickBooster
+    if (!translationEN) {
+            document.querySelector("#buyClickBoosterMessage").innerHTML = 
+            `A cada 5 segundos, o proximo clique da +(10 x (10 x nivel)) glihs. Pode acumular e adiciona antes de jackpot<br>
+            Nivel atual: +${numberAbbreviate(clickBooster)} por boost.<br>
+            O proximo clique dara: +${numberAbbreviate(currentClickBooster)} glihs`
+        } else {
+            document.querySelector("#buyClickBoosterMessage").innerHTML = 
+            `Each 5 seconds, the next click gives +(10 x (10 x level)) glihs. Can stack and adds before jackpot<br>
+            Current level: +${numberAbbreviate(clickBooster)} per boost.<br>
+            The next click will give: +${numberAbbreviate(currentClickBooster)} glihs`
+        }
+},5000)
+// botao de jackpot
+let buyJackpotChance = document.querySelector("#buyJackpotChance")
+let buyJackpotChancePrice = 777
+jackpotChance = 0.00001
+buyJackpotChance.textContent = `comprar chance de jackpot ao clicar $${buyJackpotChancePrice} glihs`
+let jackpotChanceMessage = document.querySelector("#jackpotChanceMessage")
+buyJackpotChance.addEventListener("click",()=>{
+    if (glihBalance >= buyJackpotChancePrice) {
+        if (jackpotChance  === 0.00001) {
+            jackpotChance += 0.00009
+        } else {
+            jackpotChance += 0.0001
+        }
+        glihBalance -= buyJackpotChancePrice
+        glihVisualChange()
+        buyJackpotChancePrice = buyJackpotChancePrice * 10
+        if(!translationEN) {
+            buyJackpotChance.textContent = `comprar chance de jackpot ao clicar $${numberAbbreviate(buyJackpotChancePrice)} glihs`
+            document.querySelector("#jackpotChanceMessage").innerHTML =
+                `+0.01% de chance por upgrade de conseguir um jackpot quando clicar no botao de clique por glih que garante 10000x mais glihs nesse clique<br>
+                Nivel atual: ${(jackpotChance * 100).toFixed(2)}% de chance`
+        } else {
+            buyJackpotChance.textContent = `buy jackpot chance on click $${numberAbbreviate(buyJackpotChancePrice)} glihs`
+            document.querySelector("#jackpotChanceMessage").innerHTML =
+            `+0.01% chance per upgrade to hit a jackpot when clicking for glih which grants 10000x what the click would<br>
+            Current level: ${(jackpotChance * 100).toFixed(2)}% chance`
+        }
+    }
+})
+let adminInput = document.querySelector("#adminInput")
+let adminForm = document.querySelector("#adminForm")
+let adminGlihBalance = document.querySelector("#adminGlihBalance")
+let adminJackpotChance = document.querySelector("#adminJackpotChance")
+let adminGlihBalanceInput = document.querySelector("#adminGlihBalanceInput")
+let adminJackpotChanceInput = document.querySelector("#adminJackpotChanceInput")
+adminGlihBalance.hidden = true
+adminJackpotChance.hidden = true
+adminForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+    if (adminInput.value === "1987") {
+        adminGlihBalance.hidden = false
+        adminJackpotChance.hidden = false
+
+        adminGlihBalance.addEventListener("submit",(event)=>{
+            event.preventDefault()
+            glihBalance = Number(adminGlihBalanceInput.value)
+            glihVisualChange()
+            adminGlihBalanceInput.value = ""
+        })
+        adminJackpotChance.addEventListener("submit",(event)=>{
+            event.preventDefault()
+            jackpotChance = Number(adminJackpotChanceInput.value) / 100
+            adminJackpotChanceInput.value = ""
+        })
+    }
+})
+// botao de upgrade passivo (descartado)
+
+/*
+traducao
+document.querySelector("#glihPassiveIncreaseMessage").innerHTML =
+`Increases your glih balance by 2.5% per upgrade each second<br>
+Current level: ${(glihPassiveIncrease * 100).toFixed(1)}% glihs per second`
+
+buyGlihPassiveIncrease.textContent = `buy glih passive upgrade $${numberAbbreviate(buyGlihPassiveIncreasePrice)} glihs`
+
+configuracao do botao
 let glihPassiveIncreaseMessage = document.querySelector("#glihPassiveIncreaseMessage")
 let buyGlihPassiveIncrease = document.querySelector("#buyGlihPassiveIncrease")
 let glihPassiveIncrease = 0
@@ -404,73 +660,4 @@ setInterval(()=>{
             glihVisualChange()
         }
     },1000)
-// botao de jackpot
-let buyJackpotChance = document.querySelector("#buyJackpotChance")
-let buyJackpotChancePrice = 777
-jackpotChance = 0.0001
-buyJackpotChance.textContent = `comprar chance de jackpot ao clicar $${buyJackpotChancePrice} glihs`
-let jackpotChanceMessage = document.querySelector("#jackpotChanceMessage")
-buyJackpotChance.addEventListener("click",()=>{
-    if (glihBalance >= buyJackpotChancePrice) {
-        if (jackpotChance  === 0.0001) {
-            jackpotChance += 0.0009
-        } else {
-            jackpotChance += 0.001
-        }
-        glihBalance -= buyJackpotChancePrice
-        glihVisualChange()
-        buyJackpotChancePrice = buyJackpotChancePrice * 10
-        if(!translationEN) {
-            buyJackpotChance.textContent = `comprar chance de jackpot ao clicar $${numberAbbreviate(buyJackpotChancePrice)} glihs`
-            document.querySelector("#jackpotChanceMessage").innerHTML =
-                `+0.1% de chance por upgrade de conseguir um jackpot quando clicar no botao de clique por glih que garante 10000x mais glihs nesse clique<br>
-                Nivel atual: ${(jackpotChance * 100).toFixed(1)}% de chance`
-        } else {
-            buyJackpotChance.textContent = `buy jackpot chance on click $${numberAbbreviate(buyJackpotChancePrice)} glihs`
-            document.querySelector("#jackpotChanceMessage").innerHTML =
-            `+0.1% chance per upgrade to hit a jackpot when clicking for glih which grants 10000x what the click would<br>
-            Current level: ${(jackpotChance * 100).toFixed(1)}% chance`
-        }
-    }
-})
-
-// traducao
-let translations = {
-    welcome: "Welcome to glihland here we have glihs",
-    nameInput: "type your name:",
-    glihButton: "click for glih",
-    tip: "if yoyr'e on pc you can click with mouse OR spacebar",
-    toggleMusic: "Pause/unpause music"
-}
-let buttonTranslate = document.querySelector("#buttonTranslate")
-buttonTranslate.addEventListener("click",()=>{
-    translateAll()
-    buttonTranslate.remove()
-})
-let adminInput = document.querySelector("#adminInput")
-let adminForm = document.querySelector("#adminForm")
-let adminGlihBalance = document.querySelector("#adminGlihBalance")
-let adminJackpotChance = document.querySelector("#adminJackpotChance")
-let adminGlihBalanceInput = document.querySelector("#adminGlihBalanceInput")
-let adminJackpotChanceInput = document.querySelector("#adminJackpotChanceInput")
-adminGlihBalance.hidden = true
-adminJackpotChance.hidden = true
-adminForm.addEventListener("submit", (event) => {
-    event.preventDefault()
-    if (adminInput.value === "1987") {
-        adminGlihBalance.hidden = false
-        adminJackpotChance.hidden = false
-
-        adminGlihBalance.addEventListener("submit",(event)=>{
-            event.preventDefault()
-            glihBalance = Number(adminGlihBalanceInput.value)
-            glihVisualChange()
-            adminGlihBalanceInput.value = ""
-        })
-        adminJackpotChance.addEventListener("submit",(event)=>{
-            event.preventDefault()
-            jackpotChance = Number(adminJackpotChanceInput.value) / 100
-            adminJackpotChanceInput.value = ""
-        })
-    }
-})
+*/
