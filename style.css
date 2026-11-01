@@ -26,13 +26,15 @@ button {
     background-color 0.2s,
     transform 0.1s;
 }
-button:focus:not(jackpotEffect) {
+button:focus:not(jackpotEffect):not(:active) {
     outline: 0.07em solid rgb(119, 0, 255);
     box-shadow: 0 0 2em #7700ff;
     transition: box-shadow 2s, transform 0.1s;
 }
 button:active {
     transform: scale(0.9);
+    outline: 0.07em solid rgb(119, 0, 255);
+    box-shadow: 0 0 2em #7700ff;
     transition: transform 0s;
 }
 button:focus:not(:active) {
