@@ -1,12 +1,18 @@
+:root {
+    --backgroundGradient: linear-gradient(to right, #e4c1ff, #ffffff);
+    --mainColor: #af4aff;
+    --buttonBackgroundColor: #ff85e4;
+    --buttonBorderColor: #632497;
+}
 body {
     isolation: isolate;
-    background-image: linear-gradient(to right, #e4c1ff, #ffffff);
+    background-image: var(--backgroundGradient);
     min-height: 100vh;
     margin: 0;
     font-family: Arial;
 }
 .defaultDiv {
-    background-color: #af4aff;
+    background-color: var(--mainColor);
     text-align: center;
     font-size: 25px;
     color: #ffffff;
@@ -14,8 +20,8 @@ body {
 button {
     font-size: 30px;
     touch-action: manipulation;
-    background-color: #ff85e4;
-    border: 5px solid #632497;
+    background-color: var(--buttonBackgroundColor);
+    border: 5px solid var(--buttonBorderColor);
     border-radius: 10px;
     color: #fff;
     text-shadow: 0 0 0.22em #fff;
@@ -26,7 +32,7 @@ button {
     background-color 0.2s,
     transform 0.1s;
 }
-button:focus:not(jackpotEffect):not(:active) {
+button:focus:not(.jackpotEffect):not(:active):not(.shop button):not(.shop button:active):not(.shop button:focus) {
     outline: 0.07em solid rgb(119, 0, 255);
     box-shadow: 0 0 2em #7700ff;
     transition: box-shadow 2s, transform 0.1s;
@@ -37,12 +43,12 @@ button:active {
     box-shadow: 0 0 2em #7700ff;
     transition: transform 0s;
 }
-button:focus:not(:active) {
+button:focus:not(:active):not(.shop button) {
     transform: scale(1.05);
     transition: box-shadow 2s, transform 0.1s;
 }
 button:hover{
-    background-color: #dd6fc5;
+    background-color: hsl(from var(--buttonBackgroundColor) h calc(s * 0.8) calc(l * 0.9));
 }
 .leftRight {
     display: flex;
@@ -143,7 +149,7 @@ body.jackpotBoostAnimation::after {
     text-shadow: 0 0 0.22em #fff;
 }
 nav{
-    background-color: #af4aff;
+    background-color: var(--mainColor);
     padding: 10px;
 }
 nav ul{
@@ -220,7 +226,8 @@ hr{
     padding-right: 10px;
     padding-bottom: 6px;
     border: 4px solid #632497;
-    border-radius: 10px
+    border-radius: 10px;
+    z-index: 10;
 }
 #mainGlih {
     display: flex;
@@ -247,7 +254,7 @@ hr{
 .details {
     margin: 0;
     color: #fff;
-    background-color: #af4aff;
+    background-color: var(--mainColor);
     padding: 3px;
     width: 52%;
     text-shadow: 0 0 0.22em #000000;
@@ -263,4 +270,79 @@ img {
 #adminForm input{
     background-color: transparent;
     border: none;
+}
+
+.shop {
+    font-size: 200%;
+    margin: 10px;
+    background-image: linear-gradient(
+        to right,
+        rgb(29, 0, 41),
+        rgb(135, 0, 189),
+        rgb(135, 0, 189),
+        rgb(237, 192, 255),
+        rgb(135, 0, 189),
+        rgb(135, 0, 189),
+        rgb(29, 0, 41)
+    );
+    background-size: 200% 100%;
+    animation: shopBackgroundAnimation 20s linear infinite;
+    border: 8px solid rgb(24, 0, 51);
+    border-radius: 15px;
+}
+.shop * {
+    color: white;
+}
+.shop button {
+    background-color: rgb(44, 0, 102);
+    border: 5px solid rgb(111, 0, 255);
+    border-radius: 5px;
+    box-shadow: none;
+    outline: 0.1em solid rgb(0, 0, 0);
+    transition: box-shadow 0s, transform 0.2s;
+    width: 100%;
+}
+.shop button:hover {
+    box-shadow: 0 0 0.5em white;
+    transform: scale(1.05);
+    transition: box-shadow 0s, transform 0.2s;
+}
+.shop button:focus {
+    box-shadow: 0 0 0.5em white;
+    transition: box-shadow 0s, transform 0.2;
+}
+.shop button:active {
+    transform: scale(0.9);
+    transition: none;
+}
+.shop table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+.shop th {
+    text-shadow:
+    0 0 0.25em white
+    ;
+    border-bottom: 5px solid rgb(24, 0, 51);
+    border-right: 5px solid rgb(24, 0, 51);
+    background-image: linear-gradient(to right, rgb(60, 0, 129), rgb(27, 0, 58));
+}
+.shop td {
+    text-shadow:
+    0 0 0.4em black
+    ;
+    border-right: 5px solid rgb(24, 0, 51);
+    border-bottom: 5px solid rgb(24, 0, 51);
+}
+.shop img {
+    width: 25px;
+}
+@keyframes shopBackgroundAnimation {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: 200% 0%;
+    }
 }
