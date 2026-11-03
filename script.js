@@ -51,6 +51,8 @@ let translations = {
     toggleMusic: "Pause/unpause music",
     colorForm: "Type the website's color(ex: yellow ou lightblue):",
     colorMessage: "Type 'original' to change the color to the website's original",
+    glihDescription: "buy a glih",
+    paletteDescription: "Gives you the ability to change hte website's main color",
 }
 let buttonTranslate = document.querySelector("#buttonTranslate")
 buttonTranslate.addEventListener("click",()=>{
