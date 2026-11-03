@@ -9,6 +9,17 @@ rafaps.forEach(p => {
         p.style.width = expanded ? "75%" : "40%";
     }, 2500);
 });
+// Hello, world!
+let helloWorldButton = document.querySelector("#helloWorldButton")
+let helloWorld = document.querySelector("#helloWorld")
+if (helloWorldButton) {
+    helloWorldButton.addEventListener("click", () => {
+        helloWorld.textContent += "Hello world! "
+        helloWorld.scrollIntoView({
+            block: "end"
+        })
+    })
+}
 // traducao
 function translateAll() {
     translationEN = true
@@ -37,7 +48,9 @@ let translations = {
     nameInput: "type your name:",
     glihButton: "click for glih",
     tip: "if yoyr'e on pc you can click with mouse OR spacebar",
-    toggleMusic: "Pause/unpause music"
+    toggleMusic: "Pause/unpause music",
+    colorForm: "Type the website's color(ex: yellow ou lightblue):",
+    colorMessage: "Type 'original' to change the color to the website's original",
 }
 let buttonTranslate = document.querySelector("#buttonTranslate")
 buttonTranslate.addEventListener("click",()=>{
@@ -52,17 +65,6 @@ let playlist = [
     "musica/Heartbeat, Heartbreak.mp3",
     "musica/Graze the Roof (In-Game).mp3"
 ]
-// Hello, world!
-let helloWorldButton = document.querySelector("#helloWorldButton")
-let helloWorld = document.querySelector("#helloWorld")
-if (helloWorldButton) {
-    helloWorldButton.addEventListener("click", () => {
-        helloWorld.textContent += "Hello world! "
-        helloWorld.scrollIntoView({
-            block: "end"
-        })
-    })
-}
 
 let body = document.querySelector("body")
 let buttons = document.querySelectorAll("button")
@@ -349,8 +351,8 @@ glihButton.addEventListener("click", () => {
     //jackpot
     if (Math.random() < jackpotChance) {
         if (currentClickBooster === 0) {
-            glihNumber += (glihIncrease + currentClickBooster) * 10000
-            glihBalance += (glihIncrease + currentClickBooster) * 10000
+            glihNumber += (glihIncrease + currentClickBooster) * 1000
+            glihBalance += (glihIncrease + currentClickBooster) * 1000
             new Audio("Totem_of_Undying.ogg").play()
             body.classList.add("jackpotEffect")
             glihMessage.classList.add("jackpotEffect")
@@ -359,7 +361,7 @@ glihButton.addEventListener("click", () => {
             glihButton.textContent = "JACKPOT!!!"
             glihVisualChange = function glihVisualChange() {
                 glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`    
-                glihMessage.textContent = `+${numberAbbreviate(glihIncrease * 10000)} glihs!`
+                glihMessage.textContent = `+${numberAbbreviate(glihIncrease * 1000)} glihs!`
             }
             setTimeout(()=>{
                 body.classList.remove("jackpotEffect")
@@ -391,8 +393,8 @@ glihButton.addEventListener("click", () => {
         // jackpot + boost
         } else {
             glihButton.disabled = true
-            glihNumber += (glihIncrease + currentClickBooster) * 10000
-            glihBalance += (glihIncrease + currentClickBooster) * 10000
+            glihNumber += (glihIncrease + currentClickBooster) * 1000
+            glihBalance += (glihIncrease + currentClickBooster) * 1000
             const totemOfUndyingSFX = new Audio("Totem_of_Undying.ogg")
             totemOfUndyingSFX.preservesPitch = false
             totemOfUndyingSFX.playbackRate = 0.93
@@ -405,7 +407,7 @@ glihButton.addEventListener("click", () => {
             glihButton.textContent = "JACKPOT + BOOST!!!!!!"
             glihVisualChange = function glihVisualChange() {
                 glihBalanceMessage.textContent = `glihs: ${numberAbbreviate(glihBalance)}`    
-                glihMessage.textContent = `+${numberAbbreviate((glihIncrease + currentClickBooster) * 10000)} GLIHS!!!`
+                glihMessage.textContent = `+${numberAbbreviate((glihIncrease + currentClickBooster) * 1000)} GLIHS!!!`
             }
             setTimeout(()=>{
                 glihMessage.classList.remove("jackpotBoostEffect")
@@ -493,7 +495,7 @@ buyGlihIncrease.addEventListener("click",()=>{
         glihIncrease = glihIncrease * 2
         glihBalance = glihBalance - buyGlihIncreasePrice
         glihVisualChange()
-        buyGlihIncreasePrice = Math.round(buyGlihIncreasePrice * 2.2)
+        buyGlihIncreasePrice = buyGlihIncreasePrice * 2
         if (!translationEN) {
             buyGlihIncrease.textContent = `comprar glih upgrade $${numberAbbreviate(buyGlihIncreasePrice)} glihs`
         } else {
@@ -521,7 +523,7 @@ buyClickBooster.addEventListener("click",()=>{
     if (glihBalance >= buyClickBoosterPrice) {
         glihBalance -= buyClickBoosterPrice
         glihVisualChange()
-        buyClickBoosterPrice **= 1.242
+        buyClickBoosterPrice *= 9.8
         if (clickBooster === 0) {
             clickBooster += 10
         } else {
@@ -562,15 +564,15 @@ setInterval(()=>{
 // botao de jackpot
 let buyJackpotChance = document.querySelector("#buyJackpotChance")
 let buyJackpotChancePrice = 777
-jackpotChance = 0.00001
+jackpotChance = 0.0001
 buyJackpotChance.textContent = `comprar chance de jackpot ao clicar $${buyJackpotChancePrice} glihs`
 let jackpotChanceMessage = document.querySelector("#jackpotChanceMessage")
 buyJackpotChance.addEventListener("click",()=>{
     if (glihBalance >= buyJackpotChancePrice) {
-        if (jackpotChance  === 0.00001) {
-            jackpotChance += 0.00009
+        if (jackpotChance  === 0.0001) {
+            jackpotChance += 0.0009
         } else {
-            jackpotChance += 0.0001
+            jackpotChance += 0.001
         }
         glihBalance -= buyJackpotChancePrice
         glihVisualChange()
@@ -587,6 +589,47 @@ buyJackpotChance.addEventListener("click",()=>{
             Current level: ${(jackpotChance * 100).toFixed(2)}% chance`
         }
     }
+})
+//loja
+function itemListCheck() {
+    if (itemList.Palette) {
+        colorForm.hidden = false
+    }
+}
+let buyShopButton = document.querySelectorAll(".buyShopButton")
+let itemList = {}
+for (let button of buyShopButton) {
+    button.addEventListener("click",(event)=>{
+        itemPrice = event.target.closest("tr").querySelector("[data-price]").dataset.price
+        if (glihBalance >= itemPrice) {
+            glihBalance -= itemPrice
+            glihVisualChange()
+            item = event.target.closest("tr").querySelector("td").textContent
+            itemList[item] = true
+            itemListCheck()
+            button.remove()
+        }
+    })
+}
+let colorForm = document.querySelector("#colorForm")
+let colorInput = document.querySelector("#colorInput")
+let originalGradient = "linear-gradient(to right, #e4c1ff, #ffffff)"
+colorForm.addEventListener("submit",(event)=>{
+    event.preventDefault()
+    chosenColor = colorInput.value.trim().toLowerCase()
+    colorGradient = `linear-gradient(to right, hsl(from ${chosenColor} h s calc(l * 1.8)), #fff)`
+    if (colorInput.value != "original") {
+        document.documentElement.style.setProperty("--mainColor",chosenColor)
+        document.documentElement.style.setProperty("--backgroundGradient",colorGradient)
+        document.documentElement.style.setProperty("--buttonBackgroundColor",`hsl(from ${chosenColor} h s calc(l * 1.2))`)
+        document.documentElement.style.setProperty("--buttonBorderColor",`hsl(from ${chosenColor} h s calc(l * 0.4))`)
+    } else{
+        document.documentElement.style.setProperty("--mainColor","#af4aff")
+        document.documentElement.style.setProperty("--backgroundGradient",originalGradient)
+        document.documentElement.style.setProperty("--buttonBackgroundColor","#ff85e4")
+        document.documentElement.style.setProperty("--buttonBorderColor","#632497")
+    }
+    colorInput.value = ""
 })
 let adminInput = document.querySelector("#adminInput")
 let adminForm = document.querySelector("#adminForm")
