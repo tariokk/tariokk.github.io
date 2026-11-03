@@ -147,6 +147,8 @@ formGlihName.addEventListener("submit", (event) => {
     ) {
         userNameMessage.textContent = "oi irma!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         glih.src = "images/mavih.webp"
+        glihItem.innerHTML = `<img src="images/mavih.webp">mavih`
+        glihDescription.textContent = "compre uma mavih"
 
     //verity
     } else if (userName.toLowerCase().startsWith("verity")) {
@@ -596,7 +598,7 @@ function inventoryCheck() {
     if (inventory.Palette) {
         colorForm.hidden = false
     }
-    if (inventory.glih) {
+    if (inventory.glih || inventory.mavih) {
         glih.hidden = false
         requestAnimationFrame(moveGlih)
     }
@@ -668,6 +670,9 @@ function moveGlih() {
     document.documentElement.style.setProperty("--glihY", `${glihY}px`)
     requestAnimationFrame(moveGlih)
 }
+let glihItem = document.querySelector("#glihItem")
+let glihItemImg = document.querySelector("#glihItemImg")
+let glihDescription = document.querySelector("#glihDescription")
 
 let adminInput = document.querySelector("#adminInput")
 let adminForm = document.querySelector("#adminForm")
