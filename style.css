@@ -3,6 +3,8 @@
     --mainColor: #af4aff;
     --buttonBackgroundColor: #ff85e4;
     --buttonBorderColor: #632497;
+    --glihX: 0;
+    --glihY: 0;
 }
 body {
     isolation: isolate;
@@ -336,7 +338,8 @@ img {
     border-bottom: 5px solid rgb(24, 0, 51);
 }
 .shop img {
-    width: 25px;
+    width: 40px;
+    vertical-align: middle;
 }
 @keyframes shopBackgroundAnimation {
     from {
@@ -345,4 +348,10 @@ img {
     to {
         background-position: 200% 0%;
     }
+}
+#glih {
+    width: 60px;
+    position: fixed;
+    left: var(--glihX);
+    bottom: var(--glihY);
 }
