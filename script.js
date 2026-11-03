@@ -146,6 +146,7 @@ formGlihName.addEventListener("submit", (event) => {
         userName.toLowerCase().startsWith("mavis") || userName.toLowerCase().startsWith("veeb") || userName.toLowerCase().startsWith("mavih")
     ) {
         userNameMessage.textContent = "oi irma!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        glih.src = "images/mavih.webp"
 
     //verity
     } else if (userName.toLowerCase().startsWith("verity")) {
@@ -591,13 +592,17 @@ buyJackpotChance.addEventListener("click",()=>{
     }
 })
 //loja
-function itemListCheck() {
-    if (itemList.Palette) {
+function inventoryCheck() {
+    if (inventory.Palette) {
         colorForm.hidden = false
+    }
+    if (inventory.glih) {
+        glih.hidden = false
+        requestAnimationFrame(moveGlih)
     }
 }
 let buyShopButton = document.querySelectorAll(".buyShopButton")
-let itemList = {}
+let inventory = {}
 for (let button of buyShopButton) {
     button.addEventListener("click",(event)=>{
         itemPrice = event.target.closest("tr").querySelector("[data-price]").dataset.price
@@ -605,8 +610,8 @@ for (let button of buyShopButton) {
             glihBalance -= itemPrice
             glihVisualChange()
             item = event.target.closest("tr").querySelector("td").textContent
-            itemList[item] = true
-            itemListCheck()
+            inventory[item] = true
+            inventoryCheck()
             button.remove()
         }
     })
@@ -631,6 +636,39 @@ colorForm.addEventListener("submit",(event)=>{
     }
     colorInput.value = ""
 })
+let glih = document.querySelector("#glih")
+let glihX = 0
+let glihY = 0
+let glihXspeed = 3
+let glihYspeed = 3
+let screenWidth = window.innerWidth
+let screenHeight = window.innerHeight
+function moveGlih() {
+    glihX += glihXspeed
+    glihY += glihYspeed
+    screenWidth = window.innerWidth
+    screenHeight = window.innerHeight
+    if (glihX >= screenWidth - glih.offsetWidth) {
+        glihX = screenWidth - glih.offsetWidth
+        glihXspeed = -Math.abs(glihXspeed)
+    }
+    if (glihY >= screenHeight - glih.offsetHeight) {
+        glihY = screenHeight - glih.offsetHeight
+        glihYspeed = -Math.abs(glihYspeed)
+    }
+    if (glihX < 0) {
+        glihX = 0
+        glihXspeed = Math.abs(glihXspeed)
+    }
+    if (glihY < 0) {
+        glihY = 0
+        glihYspeed = Math.abs(glihYspeed)
+    }
+    document.documentElement.style.setProperty("--glihX", `${glihX}px`)
+    document.documentElement.style.setProperty("--glihY", `${glihY}px`)
+    requestAnimationFrame(moveGlih)
+}
+
 let adminInput = document.querySelector("#adminInput")
 let adminForm = document.querySelector("#adminForm")
 let adminGlihBalance = document.querySelector("#adminGlihBalance")
