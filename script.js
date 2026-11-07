@@ -39,6 +39,9 @@ function translateAll() {
     buyGlihIncrease.textContent = `buy glih upgrade $${numberAbbreviate(buyGlihIncreasePrice)} glihs`
     buyJackpotChance.textContent = `buy jackpot chance on click $${numberAbbreviate(buyJackpotChancePrice)} glihs`
     buyClickBooster.textContent = `buy upgrade passive click booster $${numberAbbreviate(buyClickBoosterPrice)} glihs`
+    for (let button of buyShopButton) {
+        button.textContent = "Buy"
+    }
     document.querySelectorAll("[data-translate]").forEach(element=>{
         element.textContent = translations[element.dataset.translate]
     })
@@ -676,7 +679,132 @@ let glihItem = document.querySelector("#glihItem")
 let glihItemImg = document.querySelector("#glihItemImg")
 let glihDescription = document.querySelector("#glihDescription")
 
-let adminInput = document.querySelector("#adminInput")
+//glihouse
+let glihouse = document.querySelector("#glihouse")
+let player = document.querySelector("#player")
+let glihSprite = document.querySelector("#glihSprite")
+let playerX = 0
+let playerY = 0
+let playerXspeed = 300
+let playerYspeed = 500
+let playerIsFacingRight = true
+let playerIsFacingLeft = false
+let gravity = 1800
+let playerJump = false
+let keysHeld = {}
+let enemy = document.querySelector("#enemy")
+let attack = document.querySelector("#attack")
+attack.style.opacity = "0"
+let enemyHealthBar = document.querySelector("#enemyHealthBar")
+let enemyHealth = 10
+enemyHealthBar.textContent = enemyHealth
+let attackHitbox = attack.getBoundingClientRect()
+let enemyHitbox = enemy.getBoundingClientRect()
+let collision =
+    attackHitbox.left < enemyHitbox.right &&
+    attackHitbox.right > enemyHitbox.left &&
+    attackHitbox.top < enemyHitbox.bottom &&
+    attackHitbox.bottom > enemyHitbox.top;
+document.addEventListener("keydown",(event)=>{
+    if (event.key === "d") {
+        keysHeld.keyD = true
+        playerIsFacingRight = true
+        playerIsFacingLeft = false
+    }
+    if (event.key === "a") {
+        keysHeld.keyA = true
+        playerIsFacingLeft = true
+        playerIsFacingRight = false
+    }
+    if (event.key === " ") {
+        keysHeld.keySpace = true
+    }
+})
+document.addEventListener("keyup",(event)=>{
+    if (event.key === "d") {
+        keysHeld.keyD = false
+    }
+    if (event.key === "a") {
+        keysHeld.keyA = false
+    }
+    if (event.key === " ") {
+        keysHeld.keySpace = false
+    }
+})
+document.addEventListener("keydown",(event)=>{
+    if (event.key === "e" && attack.style.opacity === "0") {
+        attack.style.opacity = "0.5"
+        if (collision) {
+            enemyHealth -= 1
+            enemyHealthBar.textContent = enemyHealth
+        }
+        setTimeout(()=>{
+            attack.style.opacity = "0"
+        },350)
+    }
+})
+let lastFrame = 0
+function playerMovement(timestamp) {
+    let deltaTime = (timestamp - lastFrame) / 1000
+    lastFrame = timestamp
+    let glihouseWidth = glihouse.offsetWidth
+
+    //movimento pra direita
+    if (keysHeld.keyD) {
+        playerXspeed = Math.abs(playerXspeed)
+        playerX += playerXspeed * deltaTime
+    }
+    //movimento pra esquerda
+    if (keysHeld.keyA) {
+        playerXspeed = -Math.abs(playerXspeed)
+        playerX += playerXspeed * deltaTime
+    }
+    if (playerX < 0) {
+        playerX = 0
+    }
+    if (playerX > glihouseWidth - player.offsetWidth) {
+        playerX = glihouseWidth - player.offsetWidth
+    }
+    //pulo
+    if (keysHeld.keySpace && playerY === 0) {
+        playerJump = true
+    }
+    if (playerJump) {
+        playerY += -playerYspeed * deltaTime
+        playerYspeed -= gravity * deltaTime
+    }
+    if (playerY > 0) {
+        playerJump = false
+        playerY = 0
+        playerYspeed = 500
+    }
+    if (playerY < 0 && !playerJump) {
+        
+    }
+    //hitbox
+    if (playerIsFacingLeft) {
+            attack.style.left = "-100%"
+            glihSprite.style.transform = "scaleX(-1)"
+        } else {
+            attack.style.left = "100%"
+            glihSprite.style.transform = "scaleX(1)"
+        }
+    player.style.transform = `translate(${playerX}px,${playerY}px)`
+
+    attackHitbox = attack.getBoundingClientRect()
+    collision =
+    attackHitbox.left < enemyHitbox.right &&
+    attackHitbox.right > enemyHitbox.left &&
+    attackHitbox.top < enemyHitbox.bottom &&
+    attackHitbox.bottom > enemyHitbox.top;
+
+    requestAnimationFrame(playerMovement)
+}
+requestAnimationFrame(playerMovement)
+let platform1Support = document.querySelector("#platform1Support")
+let platform1SupportCtx = platform1Support.getContext("#2d")
+
+let adminInput = document.querySelector("#adminInpu t")
 let adminForm = document.querySelector("#adminForm")
 let adminGlihBalance = document.querySelector("#adminGlihBalance")
 let adminJackpotChance = document.querySelector("#adminJackpotChance")
