@@ -5,6 +5,8 @@
     --buttonBorderColor: #632497;
     --glihX: 0;
     --glihY: 0;
+    --playerX: 0;
+    --playerY: 0;
 }
 body {
     isolation: isolate;
@@ -354,4 +356,70 @@ img {
     position: fixed;
     left: var(--glihX);
     bottom: var(--glihY);
+}
+#glihouse {
+    position: relative;
+    margin: 0 auto;
+    width: 90%;
+    height: 500px;
+    background-color: #e2bfff;
+    outline: 10px solid black;
+    z-index: 2;
+}
+#player {
+    will-change: transform;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    background-color: transparent;
+    left: var(--playerX);
+    bottom: var(--playerY);
+    z-index: 1;
+}
+#attack {
+    position: absolute;
+    width: 100px;
+    height: 70px;
+    left: 100%;
+    bottom: -3px;
+    background-color: red;
+    z-index: 2;
+}
+#enemyHealthBar {
+    color: rgb(0, 255, 0);
+    position: absolute;
+    left: 60%;
+    bottom: 60px;
+    z-index: 2;
+}
+#imageRow {
+    position: absolute;
+    display: flex;
+    width: 45%;
+    height: 3px;
+    left: 20px;
+    bottom: 400px;
+    background-color: transparent;
+    overflow: visible;
+    gap: 50px;
+}
+#imageRow img {
+    transform: scale(20);
+}
+#platform1 {
+    position: absolute;
+    width: 45%;
+    height: 3px;
+    left: 0;
+    bottom: 370px;
+    background-color: #000000;
+}
+#enemy {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 800px;
+    bottom: 0;
+    background-color: transparent;
 }
