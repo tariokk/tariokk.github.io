@@ -356,6 +356,7 @@ img {
     position: fixed;
     left: var(--glihX);
     bottom: var(--glihY);
+    z-index: 3;
 }
 #glihouse {
     position: relative;
@@ -386,34 +387,55 @@ img {
     background-color: red;
     z-index: 2;
 }
-#enemyHealthBar {
-    color: rgb(0, 255, 0);
+#Mace {
     position: absolute;
-    left: 60%;
-    bottom: 60px;
+    width: 75px;
     z-index: 2;
+    left: 65%;
+    bottom: 15px;
 }
 #imageRow {
     position: absolute;
     display: flex;
-    width: 45%;
+    width: auto;
     height: 3px;
-    left: 20px;
+    left: 0;
     bottom: 400px;
     background-color: transparent;
     overflow: visible;
-    gap: 50px;
+    align-items: center;
 }
 #imageRow img {
-    transform: scale(20);
+    position: relative;
+    bottom: 5px;
+    width: 70px;
+    flex-shrink: 0;
+}
+#imageRow #ricardo {
+    position: relative;
+    width: 90px;
+    bottom: 10px;
+}
+#imageRow #erlking {
+    position: relative;
+    bottom: 10px;
+}
+#imageRow #tarioksona {
+    position: relative;
+    width: 65px;
+    bottom: 14px;
 }
 #platform1 {
     position: absolute;
-    width: 45%;
+    width: 60%;
     height: 3px;
     left: 0;
     bottom: 370px;
     background-color: #000000;
+}
+#platform1Support {
+    position: absolute;
+    top: 130px;
 }
 #enemy {
     position: absolute;
@@ -422,4 +444,36 @@ img {
     left: 800px;
     bottom: 0;
     background-color: transparent;
+}
+#enemyHealthBar {
+    color: rgb(0, 255, 0);
+    position: absolute;
+    left: 30%;
+    bottom: 80px;
+    z-index: 2;
+}
+#damageDealtMessage {
+    color: white;
+    position: absolute;
+    left: 80%;
+    bottom: 100px;
+    z-index: 2;
+}
+#mobileControls {
+    display: none;
+    justify-content: space-between;
+}
+#mobileControls button {
+    width: 230px;
+    height: 115px;
+    box-shadow: none;
+    transform: none;
+}
+@media (pointer: coarse) {
+    #mobileControls {
+        display: flex;
+    }
+    #platform1 {
+        width: 80%;
+    }
 }
