@@ -35,6 +35,9 @@ function translateAll() {
         `Each 5 seconds, the next click gives +(10 x (10 x level)) glihs. Can stack and adds before jackpot<br>
         Current level: +${numberAbbreviate(clickBooster)} per boost.<br>
         The next click will give: +${numberAbbreviate(currentClickBooster)} glihs`
+    document.querySelector("#temporaryInfo").innerHTML = 
+        `'a','d' to walk 'e' to attack spacebar to jump press it twice to double jump<br>
+        '1','2' to equip wieldable items if u have them purchased thas it ok uw`
 
     buyGlihIncrease.textContent = `buy glih upgrade $${numberAbbreviate(buyGlihIncreasePrice)} glihs`
     buyJackpotChance.textContent = `buy jackpot chance on click $${numberAbbreviate(buyJackpotChancePrice)} glihs`
@@ -50,18 +53,35 @@ let translations = {
     welcome: "Welcome to glihland here we have glihs",
     nameInput: "type your name:",
     glihButton: "click for glih",
-    tip: "if yoyr'e on pc you can click with mouse OR spacebar",
+    tip: "u can click with mouse OR spacebar (when u have the button focused)",
     toggleMusic: "Pause/unpause music",
     colorForm: "Type the website's color(ex: yellow ou lightblue):",
     colorMessage: "Type 'original' to change the color to the website's original",
     glihDescription: "buy a glih",
     paletteDescription: "Gives you the ability to change hte website's main color",
+    elytraDescription: "Gives you the ability to fly when holding jump",
+    maceDescription: "Deals more damage the more you fall before the hit",
+    infoHeader: "temporary info",
 }
 let buttonTranslate = document.querySelector("#buttonTranslate")
 buttonTranslate.addEventListener("click",()=>{
     translateAll()
     buttonTranslate.remove()
 })
+//mobile
+let isMobile = window.matchMedia("(pointer: coarse)").matches
+let temporaryInfo = document.querySelector("#temporaryInfo")
+if (isMobile) {
+    if (!translationEN) {
+        temporaryInfo.innerHTML = `pressione botao de pulo 2 vezes pra double pular, os dois botoes nos cantos sao de inventario<br>
+                                pra trocar entre items se vc tiver eles comprados so issso ok uw`
+    } else {
+        temporaryInfo.innerHTML = `press jump button twice to jump, the two buttons on the corners<br>
+                                are for switching through items if u have them purchased thas it ok uw`
+    }
+    tip.hidden = true
+}
+
 //musica
 let playlist = [
     "musica/WhenTheMoon'sReachingOutStars-Reload-.mp3",
@@ -335,6 +355,7 @@ glihButton.addEventListener("click", () => {
         currentSong = randomSong(playlist,playedSongs)
         playedSongs.push(currentSong)
         backgroundMusic.src = playlist[currentSong]
+        backgroundMusic.volume = 0.3
         backgroundMusic.play()
         backgroundMusic.addEventListener("ended",()=>{
             if (playedSongs.length === playlist.length) {
@@ -610,8 +631,22 @@ function inventoryCheck() {
         requestAnimationFrame(moveGlih)
     }
     if (inventory.Mace) {
-        playerDamage = 8
+        mace = true
         Mace.hidden = false
+        maceIcon.hidden = false
+        if (inventory.Elytra) {
+            inventory.Elytra = false
+            Elytra.hidden = true
+        }
+    }
+    if (inventory.Elytra) {
+        elytra = true
+        Elytra.hidden = false
+        elytraIcon.hidden = false
+        if (inventory.Mace) {
+            inventory.Mace = false
+            Mace.hidden = true
+        }
     }
 }
 let buyShopButton = document.querySelectorAll(".buyShopButton")
@@ -685,8 +720,55 @@ let glihItem = document.querySelector("#glihItem")
 let glihItemImg = document.querySelector("#glihItemImg")
 let glihDescription = document.querySelector("#glihDescription")
 
+function otherItemsFalse() {
+    for (let i in inventory) {
+        if (i != currentItem) {
+            inventory[i] = false
+            if (currentItem != "Mace") {
+                Mace.hidden = true
+            }
+            if (currentItem != "Elytra") {
+                Elytra.hidden = true
+            }
+        }
+    }
+}
+document.addEventListener("keydown",(event)=>{
+    if (event.key === "1" && mace) {
+        Mace.hidden = false
+        inventory.Mace = true
+        currentItem = "Mace"
+        otherItemsFalse()
+    } else if (event.key === "2" && elytra) {
+        Elytra.hidden = false
+        inventory.Elytra = true
+        currentItem = "Elytra"
+        otherItemsFalse()
+    }
+})
+let maceMobile = document.querySelector("#maceMobile")
+maceMobile.addEventListener("touchstart",()=>{
+    Mace.hidden = false
+    inventory.Mace = true
+    currentItem = "Mace"
+    otherItemsFalse()
+})
+let elytraMobile = document.querySelector("#elytraMobile")
+elytraMobile.addEventListener("touchstart",()=>{
+    Elytra.hidden = false
+    inventory.Elytra = true
+    currentItem = "Elytra"
+    otherItemsFalse()
+})
+
 let Mace = document.querySelector("#Mace")
+let mace = false
 let distanceFallen = 0
+let maceIcon = document.querySelector("#maceIcon")
+
+let Elytra = document.querySelector("#Elytra")
+let elytra = false
+let elytraIcon = document.querySelector("#elytraIcon")
 
 //glihouse
 let glihouse = document.querySelector("#glihouse")
@@ -719,6 +801,8 @@ let leftButton = document.querySelector("#leftButton")
 let rightButton = document.querySelector("#rightButton")
 let attackButton = document.querySelector("#attackButton")
 let jumpButton = document.querySelector("#jumpButton")
+let glih67button = document.querySelector("#glih67button")
+let glih67sfx = new Audio("glitch67.ogg")
 document.addEventListener("keydown",(event)=>{
     if (event.key === "d") {
         keysHeld.keyD = true
@@ -732,6 +816,11 @@ document.addEventListener("keydown",(event)=>{
     }
     if (event.key === " ") {
         keysHeld.keySpace = true
+    }
+    if (event.key === "6" || event.key === "7") {
+        glih67sfx = new Audio("glitch67.ogg")
+        glih67sfx.currentTime = 0.6
+        glih67sfx.play()
     }
 })
 document.addEventListener("keyup",(event)=>{
@@ -763,9 +852,9 @@ attackButton.addEventListener("touchstart",()=>{
             enemyHealthDecrease(playerDamage)
         }
         if (collision && inventory.Mace && distanceFallen < 80) {
-            enemyHealthDecrease(playerDamage)
+            enemyHealthDecrease(playerDamage + 7)
         } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 80 && 1+1 === 2) {
-            enemyHealthDecrease(playerDamage + 20)
+            enemyHealthDecrease(playerDamage + 27)
             playerYspeed = 100
             if (distanceFallen < 160) {
                 randomSFX = Math.random() * 100
@@ -801,15 +890,20 @@ jumpButton.addEventListener("touchend",()=>{
     keysHeld.keySpace = false
     playerDoubleJump = true
 })
+glih67button.addEventListener("touchstart",()=>{
+    glih67sfx = new Audio("glitch67.ogg")
+        glih67sfx.currentTime = 0.6
+        glih67sfx.play()
+})
 let maceSFX = new Audio()
 let damageDealtMessage = document.querySelector("#damageDealtMessage")
 let damageDealt = 0
 damageDealtMessage.textContent = damageDealt
 function enemyHealthDecrease(playerDamage) {
     enemyHealth -= playerDamage
-    enemyHealthBar.textContent = enemyHealth
+    enemyHealthBar.textContent = Math.round(enemyHealth)
     damageDealt = playerDamage
-    damageDealtMessage.textContent = damageDealt
+    damageDealtMessage.textContent = Math.round(damageDealt)
 }
 document.addEventListener("keydown",(event)=>{
     if (event.key === "e" && attack.style.opacity === "0") {
@@ -817,12 +911,12 @@ document.addEventListener("keydown",(event)=>{
         if (collision && !inventory.Mace) {
             enemyHealthDecrease(playerDamage)
         }
-        if (collision && inventory.Mace && distanceFallen < 80) {
-            enemyHealthDecrease(playerDamage)
-        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 80 && 1+1 === 2) {
-            enemyHealthDecrease(playerDamage + 20)
+        if (collision && inventory.Mace && distanceFallen < 10) {
+            enemyHealthDecrease(playerDamage + 7)
+        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 10 && playerYspeed < 0 && 1+1 === 2) {
+            enemyHealthDecrease(playerDamage - 5 + distanceFallen ** 1.25)
             playerYspeed = 100
-            if (distanceFallen < 160) {
+            if (distanceFallen < 27) {
                 randomSFX = Math.random() * 100
                 if (randomSFX <= 25)  {
                     maceSFX = new Audio("sfx/Mace_smash_ground1.ogg")
@@ -837,6 +931,7 @@ document.addEventListener("keydown",(event)=>{
                 maceSFX = new Audio("sfx/Mace_smash_ground_heavy.ogg")
             }
             maceSFX.play()
+            distanceFallen = 0
         }
         setTimeout(()=>{
             attack.style.opacity = "0"
@@ -850,6 +945,7 @@ function playerMovement(timestamp) {
     let deltaTime = (timestamp - lastFrame) / 1000
     lastFrame = timestamp
     let glihouseWidth = glihouse.offsetWidth
+    let glihouseHeight = glihouse.offsetHeight
 
     //movimento pra direita
     if (keysHeld.keyD) {
@@ -871,18 +967,29 @@ function playerMovement(timestamp) {
     if (keysHeld.keySpace && playerY === 0) {
         playerJump = true
     }
-    if (playerJump) {
+    if (playerJump && !inventory.Elytra) {
         playerY += -playerYspeed * deltaTime
         playerYspeed -= gravity * deltaTime
-        console.log(playerY)
-        console.log(playerYspeed)
-        if (Math.abs(playerY) > distanceFallen) {
-            distanceFallen = Math.abs(playerY)
+        if (playerYspeed < 0) {
+            distanceFallen++
         }
-        if (inventory.Mace && distanceFallen > 80) {
-            console.log(`Damage before: ${playerDamage}`)
-            playerDamage += Math.round(Math.abs(playerY / 100))
-            console.log(`Damage after: ${playerDamage}`)
+        if (playerYspeed > -30 && playerYspeed < 30) {
+            distanceFallen = 0
+        }
+        console.log("Distance fallen: ",distanceFallen)
+    } else if (playerJump && inventory.Elytra) {
+        if (keysHeld.keySpace) {
+            playerY += -playerYspeed * deltaTime
+        } else {
+            playerY += -playerYspeed * deltaTime
+            playerYspeed -= gravity * deltaTime
+            playerUsedDoubleJump = false
+        }
+        if (playerYspeed < 0) {
+            distanceFallen++
+        }
+        if (playerYspeed > -30 && playerYspeed < 30) {
+            distanceFallen = 0
         }
     }
     if (keysHeld.keySpace && playerDoubleJump && !playerUsedDoubleJump) {
@@ -896,15 +1003,12 @@ function playerMovement(timestamp) {
         playerUsedDoubleJump = false
         playerY = 0
         playerYspeed = 500
-        console.log(playerY)
-        console.log(playerYspeed)
         if (inventory.Mace) {
-            playerDamage = 8
             distanceFallen = 0
         }
     }
-    if (playerY < 0 && !playerJump) {
-        
+    if (Math.abs(playerY) > glihouseHeight - player.offsetHeight) {
+        playerY = -(glihouseHeight - player.offsetHeight)
     }
     //hitbox
     if (playerIsFacingLeft) {
@@ -940,7 +1044,7 @@ platform1SupportCtx.moveTo(0,50)
 platform1SupportCtx.lineTo(825,-150)
 platform1SupportCtx.stroke()
 
-let adminInput = document.querySelector("#adminInpu t")
+let adminInput = document.querySelector("#adminInput")
 let adminForm = document.querySelector("#adminForm")
 let adminGlihBalance = document.querySelector("#adminGlihBalance")
 let adminJackpotChance = document.querySelector("#adminJackpotChance")
