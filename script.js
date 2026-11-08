@@ -921,6 +921,7 @@ function playerMovement(timestamp) {
     player.style.transform = `translate(${playerX}px,${playerY}px)`
 
     attackHitbox = attack.getBoundingClientRect()
+    enemyHitbox = enemy.getBoundingClientRect()
     collision =
     attackHitbox.left < enemyHitbox.right &&
     attackHitbox.right > enemyHitbox.left &&
