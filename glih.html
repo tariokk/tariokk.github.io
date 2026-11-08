@@ -71,8 +71,8 @@
     <button class="detailsButton">info</button>
 </div>
 <p class="details" id="jackpotChanceMessage">
-    +0.01% de chance por upgrade de conseguir um jackpot quando clicar no botao de clique por glih que garante 10000x mais glihs nesse clique<br>
-    Nivel atual: 0.001% de chance
+    +0.1% de chance por upgrade de conseguir um jackpot quando clicar no botao de clique por glih que garante 10000x mais glihs nesse clique<br>
+    Nivel atual: 0.01% de chance
 </p>
 <br>
 
@@ -113,6 +113,12 @@
             <td data-price="1000000">$1m glihs</td>
             <td><button class="buyShopButton">Comprar</button></td>
         </tr>
+        <tr>
+            <td><img src="images/Mace.png">Mace</td>
+            <td>Da mais dano quanto mais voce cair antes do ataque</td>
+            <td data-price="322000000000000">$322t glihs</td>
+            <td><button class="buyShopButton">Comprar</button></td>
+        </tr>
     </table>
 </div>
 <br>
@@ -120,6 +126,7 @@
 <div id="glihouse">
     <div id="player">
         <div id="attack"></div>
+        <img id="Mace" hidden src="images/Mace.png">
         <img id="glihSprite" src="images/glih_sprite.webp" style="width: 100%;">
     </div>
 
@@ -130,17 +137,27 @@
         <img src="images/joker.webp">
         <img src="images/futaba.webp">
         <img src="images/aegis.webp">
-        <img src="images/ricardo.webp" style="transform: scale(25);">
-        <img src="images/erlking.webp">
-        <img src="images/tarioksona.webp" style="transform: scale(23);">
+        <img id="ricardo" src="images/ricardo.webp">
+        <img id="erlking" src="images/erlking.webp">
+        <img id="tarioksona" src="images/tarioksona.webp">
         <img src="images/mavisona.webp">
     </div>
     <div id="platform1"></div>
-    <canvas id="platform1Support" style="width: 50px;"></canvas>
-     <div id="enemy">
+    <canvas id="platform1Support" width="210" height="60"></canvas>
+
+    <div id="enemy">
         <p id="enemyHealthBar">joana</p>
+        <h1 id="damageDealtMessage">joao</h1>
         <img src="images/armor_stand.png" style="width: 100%">
     </div>
+
+</div>
+
+<div id="mobileControls">
+    <button id="leftButton" class="left"> <p>left</p> </button>
+    <button id="rightButton" class="left"> <p>right</p> </button>
+    <button id="attackButton" class="right"> <p>attack</p> </button>
+    <button id="jumpButton" class="right"> <p>jump</p> </button>
 </div>
 
 <footer>
