@@ -394,6 +394,13 @@ img {
     left: 65%;
     bottom: 15px;
 }
+#Elytra {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    left: 0;
+    bottom: -40px;
+}
 #imageRow {
     position: absolute;
     display: flex;
@@ -422,8 +429,8 @@ img {
 }
 #imageRow #tarioksona {
     position: relative;
-    width: 65px;
-    bottom: 14px;
+    width: 60px;
+    bottom: 9px;
 }
 #platform1 {
     position: absolute;
@@ -459,21 +466,58 @@ img {
     bottom: 100px;
     z-index: 2;
 }
+#infoHeader {
+    position: absolute;
+    left: 0;
+    top: 160px;
+}
+#temporaryInfo {
+    position: absolute;
+    left: 0;
+    top: 200px;
+}
+
 #mobileControls {
     display: none;
     justify-content: space-between;
 }
 #mobileControls button {
+    position: relative;
     width: 230px;
     height: 115px;
     box-shadow: none;
     transform: none;
 }
+#mobileControls img {
+    position: absolute;
+    width: 60%;
+    bottom: -15px;
+    left: 40px;
+}
+#mobileInventory {
+    display: none;
+    justify-content: space-between;
+}
+#mobileInventory button {
+    width: 115px;
+    height: 115px;
+    box-shadow: none;
+    transform: none;
+}
+#mobileInventory img {
+    width: 100%;
+}
 @media (pointer: coarse) {
     #mobileControls {
         display: flex;
     }
+    #mobileInventory {
+        display: flex;
+    }
     #platform1 {
         width: 80%;
+    }
+    #damageDealtMessage {
+        left: -20%;
     }
 }
