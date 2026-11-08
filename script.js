@@ -569,6 +569,7 @@ setInterval(()=>{
             The next click will give: +${numberAbbreviate(currentClickBooster)} glihs`
         }
 },5000)
+
 // botao de jackpot
 let buyJackpotChance = document.querySelector("#buyJackpotChance")
 let buyJackpotChancePrice = 777
@@ -588,16 +589,17 @@ buyJackpotChance.addEventListener("click",()=>{
         if(!translationEN) {
             buyJackpotChance.textContent = `comprar chance de jackpot ao clicar $${numberAbbreviate(buyJackpotChancePrice)} glihs`
             document.querySelector("#jackpotChanceMessage").innerHTML =
-                `+0.01% de chance por upgrade de conseguir um jackpot quando clicar no botao de clique por glih que garante 10000x mais glihs nesse clique<br>
-                Nivel atual: ${(jackpotChance * 100).toFixed(2)}% de chance`
+                `+0.1% de chance por upgrade de conseguir um jackpot quando clicar no botao de clique por glih que garante 10000x mais glihs nesse clique<br>
+                Nivel atual: ${(jackpotChance * 100).toFixed(1)}% de chance`
         } else {
             buyJackpotChance.textContent = `buy jackpot chance on click $${numberAbbreviate(buyJackpotChancePrice)} glihs`
             document.querySelector("#jackpotChanceMessage").innerHTML =
-            `+0.01% chance per upgrade to hit a jackpot when clicking for glih which grants 10000x what the click would<br>
-            Current level: ${(jackpotChance * 100).toFixed(2)}% chance`
+            `+0.1% chance per upgrade to hit a jackpot when clicking for glih which grants 10000x what the click would<br>
+            Current level: ${(jackpotChance * 100).toFixed(1)}% chance`
         }
     }
 })
+
 //loja
 function inventoryCheck() {
     if (inventory.Palette) {
@@ -606,6 +608,10 @@ function inventoryCheck() {
     if (inventory.glih || inventory.mavih) {
         glih.hidden = false
         requestAnimationFrame(moveGlih)
+    }
+    if (inventory.Mace) {
+        playerDamage = 8
+        Mace.hidden = false
     }
 }
 let buyShopButton = document.querySelectorAll(".buyShopButton")
@@ -679,6 +685,9 @@ let glihItem = document.querySelector("#glihItem")
 let glihItemImg = document.querySelector("#glihItemImg")
 let glihDescription = document.querySelector("#glihDescription")
 
+let Mace = document.querySelector("#Mace")
+let distanceFallen = 0
+
 //glihouse
 let glihouse = document.querySelector("#glihouse")
 let player = document.querySelector("#player")
@@ -690,13 +699,14 @@ let playerYspeed = 500
 let playerIsFacingRight = true
 let playerIsFacingLeft = false
 let gravity = 1800
+let playerDamage = 1
 let playerJump = false
 let keysHeld = {}
 let enemy = document.querySelector("#enemy")
 let attack = document.querySelector("#attack")
 attack.style.opacity = "0"
 let enemyHealthBar = document.querySelector("#enemyHealthBar")
-let enemyHealth = 10
+let enemyHealth = 1000
 enemyHealthBar.textContent = enemyHealth
 let attackHitbox = attack.getBoundingClientRect()
 let enemyHitbox = enemy.getBoundingClientRect()
@@ -705,6 +715,10 @@ let collision =
     attackHitbox.right > enemyHitbox.left &&
     attackHitbox.top < enemyHitbox.bottom &&
     attackHitbox.bottom > enemyHitbox.top;
+let leftButton = document.querySelector("#leftButton")
+let rightButton = document.querySelector("#rightButton")
+let attackButton = document.querySelector("#attackButton")
+let jumpButton = document.querySelector("#jumpButton")
 document.addEventListener("keydown",(event)=>{
     if (event.key === "d") {
         keysHeld.keyD = true
@@ -729,14 +743,100 @@ document.addEventListener("keyup",(event)=>{
     }
     if (event.key === " ") {
         keysHeld.keySpace = false
+        playerDoubleJump = true
     }
 })
+leftButton.addEventListener("touchstart",()=>{
+    keysHeld.keyA = true
+    playerIsFacingLeft = true
+    playerIsFacingRight = false
+})
+rightButton.addEventListener("touchstart",()=>{
+    keysHeld.keyD = true
+    playerIsFacingRight = true
+    playerIsFacingLeft = false
+})
+attackButton.addEventListener("touchstart",()=>{
+    if (attack.style.opacity === "0") {
+        attack.style.opacity = "0.5"
+        if (collision && !inventory.Mace) {
+            enemyHealthDecrease(playerDamage)
+        }
+        if (collision && inventory.Mace && distanceFallen < 80) {
+            enemyHealthDecrease(playerDamage)
+        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 80 && 1+1 === 2) {
+            enemyHealthDecrease(playerDamage + 20)
+            playerYspeed = 100
+            if (distanceFallen < 160) {
+                randomSFX = Math.random() * 100
+                if (randomSFX <= 25)  {
+                    maceSFX = new Audio("sfx/Mace_smash_ground1.ogg")
+                } else if (randomSFX <= 50)  {
+                    maceSFX = new Audio("sfx/Mace_smash_ground2.ogg")
+                } else if (randomSFX <= 75)  {
+                    maceSFX = new Audio("sfx/Mace_smash_ground3.ogg")
+                } else if (randomSFX <= 100)  {
+                    maceSFX = new Audio("sfx/Mace_smash_ground4.ogg")
+                }
+            } else {
+                maceSFX = new Audio("sfx/Mace_smash_ground_heavy.ogg")
+            }
+            maceSFX.play()
+        }
+        setTimeout(()=>{
+            attack.style.opacity = "0"
+        },350)
+    }
+})
+jumpButton.addEventListener("touchstart",()=>{
+    keysHeld.keySpace = true
+})
+leftButton.addEventListener("touchend",()=>{
+    keysHeld.keyA = false
+})
+rightButton.addEventListener("touchend",()=>{
+    keysHeld.keyD = false
+})
+jumpButton.addEventListener("touchend",()=>{
+    keysHeld.keySpace = false
+    playerDoubleJump = true
+})
+let maceSFX = new Audio()
+let damageDealtMessage = document.querySelector("#damageDealtMessage")
+let damageDealt = 0
+damageDealtMessage.textContent = damageDealt
+function enemyHealthDecrease(playerDamage) {
+    enemyHealth -= playerDamage
+    enemyHealthBar.textContent = enemyHealth
+    damageDealt = playerDamage
+    damageDealtMessage.textContent = damageDealt
+}
 document.addEventListener("keydown",(event)=>{
     if (event.key === "e" && attack.style.opacity === "0") {
         attack.style.opacity = "0.5"
-        if (collision) {
-            enemyHealth -= 1
-            enemyHealthBar.textContent = enemyHealth
+        if (collision && !inventory.Mace) {
+            enemyHealthDecrease(playerDamage)
+        }
+        if (collision && inventory.Mace && distanceFallen < 80) {
+            enemyHealthDecrease(playerDamage)
+        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 80 && 1+1 === 2) {
+            enemyHealthDecrease(playerDamage + 20)
+            playerYspeed = 100
+            if (distanceFallen < 160) {
+                randomSFX = Math.random() * 100
+                if (randomSFX <= 25)  {
+                    maceSFX = new Audio("sfx/Mace_smash_ground1.ogg")
+                } else if (randomSFX <= 50)  {
+                    maceSFX = new Audio("sfx/Mace_smash_ground2.ogg")
+                } else if (randomSFX <= 75)  {
+                    maceSFX = new Audio("sfx/Mace_smash_ground3.ogg")
+                } else if (randomSFX <= 100)  {
+                    maceSFX = new Audio("sfx/Mace_smash_ground4.ogg")
+                }
+            } else {
+                maceSFX = new Audio("sfx/Mace_smash_ground_heavy.ogg")
+            }
+            maceSFX.play()
         }
         setTimeout(()=>{
             attack.style.opacity = "0"
@@ -744,6 +844,8 @@ document.addEventListener("keydown",(event)=>{
     }
 })
 let lastFrame = 0
+let playerDoubleJump = false
+let playerUsedDoubleJump = false
 function playerMovement(timestamp) {
     let deltaTime = (timestamp - lastFrame) / 1000
     lastFrame = timestamp
@@ -772,11 +874,34 @@ function playerMovement(timestamp) {
     if (playerJump) {
         playerY += -playerYspeed * deltaTime
         playerYspeed -= gravity * deltaTime
+        console.log(playerY)
+        console.log(playerYspeed)
+        if (Math.abs(playerY) > distanceFallen) {
+            distanceFallen = Math.abs(playerY)
+        }
+        if (inventory.Mace && distanceFallen > 80) {
+            console.log(`Damage before: ${playerDamage}`)
+            playerDamage += Math.round(Math.abs(playerY / 100))
+            console.log(`Damage after: ${playerDamage}`)
+        }
+    }
+    if (keysHeld.keySpace && playerDoubleJump && !playerUsedDoubleJump) {
+        playerYspeed = 500
+        playerDoubleJump = false
+        playerUsedDoubleJump = true
     }
     if (playerY > 0) {
         playerJump = false
+        playerDoubleJump = false
+        playerUsedDoubleJump = false
         playerY = 0
         playerYspeed = 500
+        console.log(playerY)
+        console.log(playerYspeed)
+        if (inventory.Mace) {
+            playerDamage = 8
+            distanceFallen = 0
+        }
     }
     if (playerY < 0 && !playerJump) {
         
@@ -785,9 +910,13 @@ function playerMovement(timestamp) {
     if (playerIsFacingLeft) {
             attack.style.left = "-100%"
             glihSprite.style.transform = "scaleX(-1)"
+            Mace.style.transform = "scaleX(-1)"
+            Mace.style.left = "-35%"
         } else {
             attack.style.left = "100%"
             glihSprite.style.transform = "scaleX(1)"
+            Mace.style.transform = "scaleX(1)"
+            Mace.style.left = "65%"
         }
     player.style.transform = `translate(${playerX}px,${playerY}px)`
 
@@ -802,7 +931,13 @@ function playerMovement(timestamp) {
 }
 requestAnimationFrame(playerMovement)
 let platform1Support = document.querySelector("#platform1Support")
-let platform1SupportCtx = platform1Support.getContext("#2d")
+let platform1SupportCtx = platform1Support.getContext("2d")
+platform1SupportCtx.beginPath()
+platform1SupportCtx.strokeStyle = "black"
+platform1SupportCtx.lineWidth = 3.5
+platform1SupportCtx.moveTo(0,50)
+platform1SupportCtx.lineTo(825,-150)
+platform1SupportCtx.stroke()
 
 let adminInput = document.querySelector("#adminInpu t")
 let adminForm = document.querySelector("#adminForm")
