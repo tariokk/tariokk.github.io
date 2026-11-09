@@ -749,17 +749,21 @@ document.addEventListener("keydown",(event)=>{
 })
 let maceMobile = document.querySelector("#maceMobile")
 maceMobile.addEventListener("touchstart",()=>{
-    Mace.hidden = false
-    inventory.Mace = true
-    currentItem = "Mace"
-    otherItemsFalse()
+    if (mace) {
+        Mace.hidden = false
+        inventory.Mace = true
+        currentItem = "Mace"
+        otherItemsFalse()
+    }
 })
 let elytraMobile = document.querySelector("#elytraMobile")
 elytraMobile.addEventListener("touchstart",()=>{
-    Elytra.hidden = false
-    inventory.Elytra = true
-    currentItem = "Elytra"
-    otherItemsFalse()
+    if (elytra) {
+        Elytra.hidden = false
+        inventory.Elytra = true
+        currentItem = "Elytra"
+        otherItemsFalse()
+    }
 })
 
 let Mace = document.querySelector("#Mace")
