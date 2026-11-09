@@ -21,6 +21,8 @@ if (helloWorldButton) {
     })
 }
 // traducao
+let translationEN = false
+let tip = document.querySelector("#tip")
 function translateAll() {
     translationEN = true
     clickForGlih = "click for glih"
@@ -93,7 +95,6 @@ let playlist = [
 
 let body = document.querySelector("body")
 let buttons = document.querySelectorAll("button")
-let translationEN = false
 function numberAbbreviate(number) {
     if (number < 1000) {
         return number.toFixed(0)
@@ -340,7 +341,6 @@ let glihMessage = document.querySelector("#glihMessage")
 let glihBalanceMessage = document.querySelector("#glihBalanceMessage")
 let glihBalance = 0
 let glihNumber = 0
-let tip = document.querySelector("#tip")
 let glihIncrease = 1
 glihBalanceMessage.hidden = true
 glihButton.addEventListener("keydown", (event)=> {
@@ -350,6 +350,7 @@ glihButton.addEventListener("keydown", (event)=> {
 })
 glihButton.addEventListener("click", () => {
     if (glihNumber === 0) {
+        glih67button.hidden = false
         //musica
         const backgroundMusic = new Audio()
         currentSong = randomSong(playlist,playedSongs)
