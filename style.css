@@ -79,6 +79,7 @@ button img {
 }
 #glihBalanceMessage {
     transition: color 2s, text-shadow 2s;
+    pointer-events: none;
 }
 body::before {
     content:"";
