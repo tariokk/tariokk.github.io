@@ -856,12 +856,12 @@ attackButton.addEventListener("touchstart",()=>{
         if (collision && !inventory.Mace) {
             enemyHealthDecrease(playerDamage)
         }
-        if (collision && inventory.Mace && distanceFallen < 80) {
+        if (collision && inventory.Mace && distanceFallen < 20) {
             enemyHealthDecrease(playerDamage + 7)
-        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 80 && 1+1 === 2) {
+        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 20 && 1+1 === 2) {
             enemyHealthDecrease(playerDamage + 27)
             playerYspeed = 100
-            if (distanceFallen < 160) {
+            if (distanceFallen < 27) {
                 randomSFX = Math.random() * 100
                 if (randomSFX <= 25)  {
                     maceSFX = new Audio("sfx/Mace_smash_ground1.ogg")
@@ -909,6 +909,10 @@ function enemyHealthDecrease(playerDamage) {
     enemyHealthBar.textContent = Math.round(enemyHealth)
     damageDealt = playerDamage
     damageDealtMessage.textContent = Math.round(damageDealt)
+    if (enemyHealth <= 0) {
+        enemyHealth = 1000
+        enemyHealthBar.textContent = Math.round(enemyHealth)
+    }
 }
 document.addEventListener("keydown",(event)=>{
     if (event.key === "e" && attack.style.opacity === "0") {
@@ -916,9 +920,10 @@ document.addEventListener("keydown",(event)=>{
         if (collision && !inventory.Mace) {
             enemyHealthDecrease(playerDamage)
         }
-        if (collision && inventory.Mace && distanceFallen < 10) {
+        if (collision && inventory.Mace && distanceFallen < 20) {
             enemyHealthDecrease(playerDamage + 7)
-        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 10 && playerYspeed < 0 && 1+1 === 2) {
+        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 20 && playerYspeed < 0 && 1+1 === 2) {
+            console.log("Distance fallen: ",distanceFallen)
             enemyHealthDecrease(playerDamage - 5 + distanceFallen ** 1.25)
             playerYspeed = 100
             if (distanceFallen < 27) {
@@ -981,7 +986,6 @@ function playerMovement(timestamp) {
         if (playerYspeed > -30 && playerYspeed < 30) {
             distanceFallen = 0
         }
-        console.log("Distance fallen: ",distanceFallen)
     } else if (playerJump && inventory.Elytra) {
         if (keysHeld.keySpace) {
             playerY += -playerYspeed * deltaTime
