@@ -803,7 +803,7 @@ let rightButton = document.querySelector("#rightButton")
 let attackButton = document.querySelector("#attackButton")
 let jumpButton = document.querySelector("#jumpButton")
 let glih67button = document.querySelector("#glih67button")
-let glih67sfx = new Audio("glitch67.ogg")
+let glih67sfx = new Audio("sfx/glitch67.ogg")
 document.addEventListener("keydown",(event)=>{
     if (event.key === "d") {
         keysHeld.keyD = true
@@ -819,7 +819,7 @@ document.addEventListener("keydown",(event)=>{
         keysHeld.keySpace = true
     }
     if (event.key === "6" || event.key === "7") {
-        glih67sfx = new Audio("glitch67.ogg")
+        glih67sfx = new Audio("sfx/glitch67.ogg")
         glih67sfx.currentTime = 0.6
         glih67sfx.play()
     }
@@ -892,7 +892,7 @@ jumpButton.addEventListener("touchend",()=>{
     playerDoubleJump = true
 })
 glih67button.addEventListener("touchstart",()=>{
-    glih67sfx = new Audio("glitch67.ogg")
+    glih67sfx = new Audio("sfx/glitch67.ogg")
         glih67sfx.currentTime = 0.6
         glih67sfx.play()
 })
