@@ -58,6 +58,9 @@ button:focus:not(:active):not(.shop button) {
 button:hover{
     background-color: hsl(from var(--buttonBackgroundColor) h calc(s * 0.8) calc(l * 0.9));
 }
+button img {
+    pointer-events: none;
+}
 .leftRight {
     display: flex;
     justify-content: space-between;
