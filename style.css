@@ -464,7 +464,7 @@ img {
 #enemyHealthBar {
     color: rgb(0, 255, 0);
     position: absolute;
-    left: 30%;
+    left: 33%;
     bottom: 80px;
     z-index: 2;
 }
