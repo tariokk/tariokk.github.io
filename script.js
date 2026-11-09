@@ -356,7 +356,7 @@ glihButton.addEventListener("click", () => {
         currentSong = randomSong(playlist,playedSongs)
         playedSongs.push(currentSong)
         backgroundMusic.src = playlist[currentSong]
-        backgroundMusic.volume = 0.3
+        backgroundMusic.volume = 0.15
         backgroundMusic.play()
         backgroundMusic.addEventListener("ended",()=>{
             if (playedSongs.length === playlist.length) {
@@ -383,7 +383,7 @@ glihButton.addEventListener("click", () => {
         if (currentClickBooster === 0) {
             glihNumber += (glihIncrease + currentClickBooster) * 1000
             glihBalance += (glihIncrease + currentClickBooster) * 1000
-            new Audio("Totem_of_Undying.ogg").play()
+            new Audio("sfx/Totem_of_Undying.ogg").play()
             body.classList.add("jackpotEffect")
             glihMessage.classList.add("jackpotEffect")
             glihBalanceMessage.classList.add("jackpotEffect")
@@ -425,7 +425,7 @@ glihButton.addEventListener("click", () => {
             glihButton.disabled = true
             glihNumber += (glihIncrease + currentClickBooster) * 1000
             glihBalance += (glihIncrease + currentClickBooster) * 1000
-            const totemOfUndyingSFX = new Audio("Totem_of_Undying.ogg")
+            const totemOfUndyingSFX = new Audio("sfx/Totem_of_Undying.ogg")
             totemOfUndyingSFX.preservesPitch = false
             totemOfUndyingSFX.playbackRate = 0.93
             totemOfUndyingSFX.play()
@@ -553,7 +553,7 @@ buyClickBooster.addEventListener("click",()=>{
     if (glihBalance >= buyClickBoosterPrice) {
         glihBalance -= buyClickBoosterPrice
         glihVisualChange()
-        buyClickBoosterPrice *= 9.8
+        buyClickBoosterPrice *= 8
         if (clickBooster === 0) {
             clickBooster += 10
         } else {
