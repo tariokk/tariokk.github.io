@@ -879,8 +879,9 @@ attackButton.addEventListener("touchstart",()=>{
         }
         if (collision && inventory.Mace && distanceFallen < 18) {
             enemyHealthDecrease(playerDamage + 7)
-        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 18 && 1+1 === 2) {
-            enemyHealthDecrease(playerDamage + 27)
+        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 18 && playerYspeed < 0 && 1+1 === 2) {
+            console.log("Distance fallen: ",distanceFallen)
+            enemyHealthDecrease(playerDamage - 5 + distanceFallen ** 1.25775)
             playerYspeed = 100
             if (distanceFallen < 27) {
                 randomSFX = Math.random() * 100
@@ -897,6 +898,7 @@ attackButton.addEventListener("touchstart",()=>{
                 maceSFX = new Audio("sfx/Mace_smash_ground_heavy.ogg")
             }
             maceSFX.play()
+            distanceFallen = 0
         }
         setTimeout(()=>{
             attack.style.opacity = "0"
