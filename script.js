@@ -553,7 +553,7 @@ buyClickBooster.addEventListener("click",()=>{
     if (glihBalance >= buyClickBoosterPrice) {
         glihBalance -= buyClickBoosterPrice
         glihVisualChange()
-        buyClickBoosterPrice *= 8
+        buyClickBoosterPrice *= 9
         if (clickBooster === 0) {
             clickBooster += 10
         } else {
