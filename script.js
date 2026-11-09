@@ -90,7 +90,10 @@ let playlist = [
     "musica/ColorYourNight.mp3",
     "musica/巌戸台分寮 -Reload-.mp3",
     "musica/Heartbeat, Heartbreak.mp3",
-    "musica/Graze the Roof (In-Game).mp3"
+    "musica/Graze the Roof (In-Game).mp3",
+    "musica/The Whims of Fate.mp3",
+    "musica/Resenhax no Clubex.mp3",
+    "musica/Mass Destruction -Reload-.mp3",
 ]
 
 let body = document.querySelector("body")
@@ -175,6 +178,20 @@ formGlihName.addEventListener("submit", (event) => {
         glih.src = "images/mavih.webp"
         glihItem.innerHTML = `<img src="images/mavih.webp">mavih`
         glihDescription.textContent = "compre uma mavih"
+        playlist = [
+            "mavis_musica/_e não dura mais que um dia.mp3",
+            "mavis_musica/do que cê tá falando_.mp3",
+            "mavis_musica/Eu não quero mais ser esse tipo de animal.mp3",
+            "mavis_musica/ISSO É FRENE$I.mp3",
+            "mavis_musica/KHADJI MURÁT.mp3",
+            "mavis_musica/Make Room!!!!.mp3",
+            "mavis_musica/Matinta Pereira.mp3",
+            "mavis_musica/PA e MG.mp3",
+            "mavis_musica/Sexto Sentido.mp3",
+            "mavis_musica/Tomorrow's Money.mp3",
+            "mavis_musica/trópicos.mp3",
+            "mavis_musica/YUME NIKKI.mp3",
+        ]
 
     //verity
     } else if (userName.toLowerCase().startsWith("verity")) {
@@ -425,7 +442,7 @@ glihButton.addEventListener("click", () => {
             glihButton.disabled = true
             glihNumber += (glihIncrease + currentClickBooster) * 1000
             glihBalance += (glihIncrease + currentClickBooster) * 1000
-            const totemOfUndyingSFX = new Audio("sfx/Totem_of_Undying.ogg")
+            let totemOfUndyingSFX = new Audio("sfx/Totem_of_Undying.ogg")
             totemOfUndyingSFX.preservesPitch = false
             totemOfUndyingSFX.playbackRate = 0.93
             totemOfUndyingSFX.play()
@@ -636,6 +653,8 @@ function inventoryCheck() {
         Mace.hidden = false
         maceIcon.hidden = false
         if (inventory.Elytra) {
+            elytra = true
+            elytraIcon.hidden = false
             inventory.Elytra = false
             Elytra.hidden = true
         }
@@ -645,6 +664,8 @@ function inventoryCheck() {
         Elytra.hidden = false
         elytraIcon.hidden = false
         if (inventory.Mace) {
+            mace = true
+            maceIcon.hidden = false
             inventory.Mace = false
             Mace.hidden = true
         }
@@ -793,7 +814,7 @@ let enemy = document.querySelector("#enemy")
 let attack = document.querySelector("#attack")
 attack.style.opacity = "0"
 let enemyHealthBar = document.querySelector("#enemyHealthBar")
-let enemyHealth = 1000
+let enemyHealth = 100
 enemyHealthBar.textContent = enemyHealth
 let attackHitbox = attack.getBoundingClientRect()
 let enemyHitbox = enemy.getBoundingClientRect()
@@ -856,9 +877,9 @@ attackButton.addEventListener("touchstart",()=>{
         if (collision && !inventory.Mace) {
             enemyHealthDecrease(playerDamage)
         }
-        if (collision && inventory.Mace && distanceFallen < 20) {
+        if (collision && inventory.Mace && distanceFallen < 18) {
             enemyHealthDecrease(playerDamage + 7)
-        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 20 && 1+1 === 2) {
+        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 18 && 1+1 === 2) {
             enemyHealthDecrease(playerDamage + 27)
             playerYspeed = 100
             if (distanceFallen < 27) {
@@ -909,8 +930,11 @@ function enemyHealthDecrease(playerDamage) {
     enemyHealthBar.textContent = Math.round(enemyHealth)
     damageDealt = playerDamage
     damageDealtMessage.textContent = Math.round(damageDealt)
-    if (enemyHealth <= 0) {
-        enemyHealth = 1000
+    if (enemyHealth < 1) {
+        totemOfUndyingSFX = new Audio("sfx/Totem_of_Undying.ogg")
+        totemOfUndyingSFX.volume = 0.55
+        totemOfUndyingSFX.play()
+        enemyHealth = 100
         enemyHealthBar.textContent = Math.round(enemyHealth)
     }
 }
@@ -920,11 +944,11 @@ document.addEventListener("keydown",(event)=>{
         if (collision && !inventory.Mace) {
             enemyHealthDecrease(playerDamage)
         }
-        if (collision && inventory.Mace && distanceFallen < 20) {
+        if (collision && inventory.Mace && distanceFallen < 18) {
             enemyHealthDecrease(playerDamage + 7)
-        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 20 && playerYspeed < 0 && 1+1 === 2) {
+        } else if (collision && inventory.Mace && playerY < 0 && distanceFallen >= 18 && playerYspeed < 0 && 1+1 === 2) {
             console.log("Distance fallen: ",distanceFallen)
-            enemyHealthDecrease(playerDamage - 5 + distanceFallen ** 1.25)
+            enemyHealthDecrease(playerDamage - 5 + distanceFallen ** 1.25775)
             playerYspeed = 100
             if (distanceFallen < 27) {
                 randomSFX = Math.random() * 100
