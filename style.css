@@ -8,6 +8,9 @@
     --playerX: 0;
     --playerY: 0;
 }
+* {
+    touch-action: manipulation;
+}
 body {
     isolation: isolate;
     background-image: var(--backgroundGradient);
@@ -24,6 +27,7 @@ body {
 button {
     font-size: 30px;
     touch-action: manipulation;
+    user-select: none;
     background-color: var(--buttonBackgroundColor);
     border: 5px solid var(--buttonBorderColor);
     border-radius: 10px;
