@@ -698,6 +698,7 @@ colorForm.addEventListener("submit",(event)=>{
         document.documentElement.style.setProperty("--backgroundGradient",colorGradient)
         document.documentElement.style.setProperty("--buttonBackgroundColor",`hsl(from ${chosenColor} h s calc(l * 1.2))`)
         document.documentElement.style.setProperty("--buttonBorderColor",`hsl(from ${chosenColor} h s calc(l * 0.4))`)
+        glihouse.style.backgroundColor = `hsl(from ${chosenColor} h s calc(l * 1.7))`
     } else{
         document.documentElement.style.setProperty("--mainColor","#af4aff")
         document.documentElement.style.setProperty("--backgroundGradient",originalGradient)
